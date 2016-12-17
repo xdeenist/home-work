@@ -18,8 +18,10 @@ function num_line ($num1, $num2, $num3) {
 }
 
 
-$file = file('/home/xdeenist/git-repo/home-work/file.txt');
-$firstarrov = $file[0];
+//$file = file('https://raw.githubusercontent.com/xdeenist/home-work/master/pic/file.txt');
+$file = file('/home/xdeenist/git-repo/home-work/pic/file.txt');
+
+//$firstarrov = $file[0];
 
 foreach ($file as $numline) {
     list ($num1, $num2, $num3) = explode(" ", $numline);
