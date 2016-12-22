@@ -28,5 +28,5 @@ foreach ($file as $numline) {
     num_line ($num1, $num2, $num3);
     echo "\n";
 }
-
+fclose($file);
 
