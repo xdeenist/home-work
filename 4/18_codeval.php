@@ -8,7 +8,7 @@ foreach (file($argv[1]) as $value) {
     //getting numbers to process
     list($a, $b) = array_map('intval', explode(',', $value));
     //defining ranks used in final multiplier
-    while($b * ($rank  10) < $a) {
+    while($b * ($rank * 10) < $a) {
         $rank *= 10;
         $ranks[] = $rank;
     }
@@ -21,7 +21,7 @@ foreach (file($argv[1]) as $value) {
         }
         $result[$rank] = $multiplier;
         if($rank != 1) {
-            $result[$rank * 0.1] = $multiplier  10;
+            $result[$rank * 0.1] = $multiplier * 10;
         }
     }
     echo $b * ($result[1]+1) . "\n";
