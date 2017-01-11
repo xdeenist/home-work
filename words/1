@@ -1,0 +1,37 @@
+insert into words (rus, en,) values('назад', 'back');
+
+create table words (id int(11) not null auto_increment, rus varchar(50) not null, en varchar(50) not null, dictionary int(10) not null, stable_exp int(10) not null, synonim int(10) not null, PRIMARY KEY (`id`));
+
+create table synonim (id int(5) not null primary key auto_increment, synonims varchar(50) not null);
+
+create table stable_exp (id int(5) not null primary key auto_increment, stable_exp varchar(50) not null);
+
+create table dictionary (id int(5) not null primary key auto_increment, dictionarys varchar(50) not null);
+
+insert into stable_exp (stable_exp) values(1,'back and forth'),(1,'back down'),(2,'baker dozen'),(3,'balance out'),(4,'bald apot'),(5,'ball park');
+mysql> select * from stable_exp;
++----+----------------+
+| id | stable_exps    |
++----+----------------+
+|  1 | back and forth |
+|  2 | back down      |
+|  3 | baker dozen    |
+|  4 | balance out    |
+|  5 | bald apot      |
+|  6 | ball park      |
++----+----------------+
+6 rows in set (0,00 sec)
+
+insert into synonim (synonims) values('egg');
+mysql> select * from synonim;
++----+------------+
+| id | sunonims   |
++----+------------+
+|  1 | recover    |
+|  2 | recuperate |
+|  3 | bakehouse  |
+|  4 | Libra      |
+|  5 | barefaced  |
+|  6 | egg        |
++----+------------+
+6 rows in set (0,00 sec)
