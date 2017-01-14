@@ -1,4 +1,4 @@
-insert into words (rus, en,) values('назад', 'back');
+insert into words values(1'назад', 'back'1,1,1),(1'назад', 'back'2,1,1),(1'пекарь', 'baker'1,1,1),(1'баланс', 'balance'1,1,1), (1'лысый', 'bald'1,1,1), (1'мяч', 'ball'1,1,1);
 
 create table words (id int(11) not null auto_increment, rus varchar(50) not null, en varchar(50) not null, dictionary int(10) not null, stable_exp int(10) not null, synonim int(10) not null, PRIMARY KEY (`id`));
 
@@ -8,7 +8,7 @@ create table stable_exp (id int(5) not null primary key auto_increment, stable_e
 
 create table dictionary (id int(5) not null primary key auto_increment, dictionarys varchar(50) not null);
 
-insert into stable_exp (stable_exp) values(1,'back and forth'),(1,'back down'),(2,'baker dozen'),(3,'balance out'),(4,'bald apot'),(5,'ball park');
+insert into stable_exp values(1,'back and forth'),(2,'back down'),(3,'baker dozen'),(4,'balance out'),(5,'bald apot'),(6,'ball park');
 mysql> select * from stable_exp;
 +----+----------------+
 | id | stable_exps    |
@@ -22,8 +22,11 @@ mysql> select * from stable_exp;
 +----+----------------+
 6 rows in set (0,00 sec)
 
-insert into synonim (synonims) values('egg');
+insert into synonim values(1,'recover'),(2,'recuperate'),(3,'bakehouse'),(4,'Libra'),(5,'barefaced'),(6,'egg');
 mysql> select * from synonim;
+
+
+mysqldump -ulevel -hlocalhost -p --skip-extended-insert dictionary > 
 +----+------------+
 | id | sunonims   |
 +----+------------+
@@ -35,3 +38,5 @@ mysql> select * from synonim;
 |  6 | egg        |
 +----+------------+
 6 rows in set (0,00 sec)
+
+insert into dictionary values(1,'Толковый'),(2,'Орфографический');
