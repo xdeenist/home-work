@@ -40,3 +40,28 @@ mysqldump -ulevel -hlocalhost -p --skip-extended-insert dictionary >
 6 rows in set (0,00 sec)
 
 insert into dictionary values(1,'Толковый'),(2,'Орфографический');
+
+
+select post.post_text, comment.comment_text from comment LEFT JOIN post on (comment_id = post.post_id);
+
+
+Выведите все посты и количество комментариев к ним, используя GROUP BY и count(comment.comment_id)
+select post.post_text as посты, count(comment.comment_id) as число_комментов  from post, comment where post.post_id = comment.post_id  GROUP BY post.post_text;
+
+
+
+Выведите все тэги каждого поста используя LEFT JOIN от таблицы post к таблице tag через смежную таблицу post_to_tag
+select post.post_text as посты, tag.tag_title as теги from post LEFT JOIN post_to_tag on post_to_tag.post_id = post.post_id JOIN tag ON tag.tag_id = post_to_tag.tag_id;
+
+
+Используя GROUP BY подсчитайте количество тэгов у всех постов в колонке под именем tagsCount. Используйте AS для задания псевдонимов.
+select post.post_text as post, count(tag.tag_title) as tag from post left JOIN post_to_tag on post_to_tag.post_id = post.post_id left JOIN tag ON tag.tag_id = post_to_tag.tag_id group by post.post_id;
+
+
+
+Используя GROUP BY выведите все тэги для каждого поста в поле tagsList. Используйте GROUP_CONCAT для объединения тэгов в одну строку.
+select post.post_text, group_concat(tag.tag_title) from post JOIN post_to_tag on post_to_tag.post_id = post.post_id JOIN tag ON tag.tag_id = post_to_tag.tag_id group by post.post_id;
+
+ Сделайте поиск постов по тэгу, используя WHERE и какой-то tag_title. Отсортируйте выборку по дате в обратном порядке (самые свежие посты - вверху).
+select post.post_text from post INNER JOIN post_to_tag on post_to_tag.post_id = post.post_id WHERE post_to_tag.tag_id = 1 AND post_to_tag.tag_id = 2 ORDER BY post.post_create_datetime DESC;
+
