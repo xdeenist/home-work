@@ -8,9 +8,8 @@ require_once '/var/www/html/practice_blog/include/db.php';
 	<head>
 		<meta charset="utf-8">  
 		<title>Новая запись</title>
-		<link rel="stylesheet" href="../bootstrap3/css/bootstrap.css">
+		<link rel="stylesheet" href="../css/bootstrap.css">
 		<link rel="stylesheet" href="../css/styles.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	</head>
 	<body>
 		<div id="wrapper">
@@ -29,7 +28,7 @@ require_once '/var/www/html/practice_blog/include/db.php';
 				<form action="" method="POST">
 					<p><input name="post_title_add" class="form-control" placeholder="Название записи"></p>
 					<p><input name="tag_add" class="form-control" placeholder="Теги (через запятую, без '#')"></p>
-					<p><textarea name="post_min_text_add" placeholder="Краткое содержание статьи" class="form-control name="" id="" cols="30" rows="10"></textarea></p>
+					<p><textarea name="post_min_text_add" placeholder="Краткое содержание статьи" class="form-control" cols="10" rows="20"></textarea></p>
 					<p><textarea name="post_text_add" class="form-control" placeholder="Текст записи"></textarea></p>
 					<p><input type="submit" class="btn btn-danger btn-block" value="Сохранить"></p>
 				</form>

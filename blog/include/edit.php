@@ -8,9 +8,8 @@ require_once '/var/www/html/practice_blog/include/db.php';
 	<head>
 		<meta charset="utf-8">  
 		<title>Редактировать запись</title>
-		<link rel="stylesheet" href="../bootstrap3/css/bootstrap.css">
-		<link rel="stylesheet" href="../css/styles.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="../css/bootstrap.css">
+		<link rel="stylesheet" href="../css/styless.css">
 	</head>
 	<body>
 		<div id="wrapper">
@@ -29,9 +28,11 @@ require_once '/var/www/html/practice_blog/include/db.php';
                         <textarea placeholder="краткое содержание" class="form-control" name="up_min_article">
                              <?=$res_select_update[$i]['post_min_text']?>
                         </textarea>
-					<textarea name="full_edit" class="form-control">
+                    </p>
+                    <p>
+					    <textarea name="full_edit" class="form-control">
                         <?=$res_select_update[$i]['post_text']?>
-		        	</textarea>
+		        	    </textarea>
 					</p>
 					<p><input name="save" type="submit" class="btn btn-danger btn-block" value="Сохранить"></p>
 				</form>

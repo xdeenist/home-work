@@ -9,8 +9,8 @@ require_once '/var/www/html/practice_blog/include/db.php';
 	<head>
 		<meta charset="utf-8">  
 		<title>Список записей по тегу</title>
-		<link rel="stylesheet" href="../bootstrap3/css/bootstrap.css">
-		<link rel="stylesheet" href="../css/styles.css">
+		<link rel="stylesheet" href="../css/bootstrap.css">
+		<link rel="stylesheet" href="../css/styless.css">
 	</head>
 	<body>
 

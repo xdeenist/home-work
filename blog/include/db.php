@@ -10,7 +10,7 @@ try {
     die();
 } 
 //изъятие всех постов из базы
-$select = $link->query("SELECT post.post_id, post.post_title, post.post_min_text, post.post_text, post.post_create_datetime, post.post_update_datetime, group_concat(tag.tag_title) as tags FROM post LEFT JOIN post_to_tag USING (post_id) LEFT JOIN tag USING (tag_id) group by post.post_id DESC");
+$select = $link->query("SELECT post.* , group_concat(tag.tag_title) as tags FROM post LEFT JOIN post_to_tag USING (post_id) LEFT JOIN tag USING (tag_id) group by post.post_id DESC");
 $res_select = $select->fetchAll(PDO::FETCH_ASSOC);
 
 
@@ -44,12 +44,25 @@ if (!empty($_POST['post_title_add'])and !empty($_POST['post_min_text_add'])){
 
 
 
-//изъятие полного поста 
+//изъятие полного поста комментов
 if($_GET['id']){
     $getid = $_GET['id'];
-    $select_update = $link->query("SELECT post.post_id, post.post_title, post.post_min_text, post.post_text, post.post_create_datetime, group_concat(tag.tag_title) as tags FROM post LEFT JOIN post_to_tag USING (post_id) LEFT JOIN tag USING (tag_id) WHERE post_id='$getid' group by post.post_id");
+    $select_update = $link->query("SELECT post.*, group_concat(tag.tag_title) as tags FROM post LEFT JOIN post_to_tag USING (post_id) LEFT JOIN tag USING (tag_id) WHERE post_id='$getid' group by post.post_id");
     $res_select_update = $select_update ->fetchAll(PDO::FETCH_ASSOC);
+    $select_update_com = $link ->query("SELECT comment.* FROM comment LEFT JOIN post USING (post_id) WHERE post_id='$getid' ");
+    $select_comment = $select_update_com ->fetchAll(PDO::FETCH_ASSOC);
+    //var_dump($select_comment);
+    for ($i=0; $i < count($select_comment); $i++) { 
+        if (is_null($select_comment[$i]['comment_parent_id'])) {
+            $comment_arr_main[$i] = $select_comment[$i];
+        } else  $comment_arr[$i] = $select_comment[$i]; 
+    }
+$comment_main = array_values($comment_arr_main);
+$comment_not_mine = array_values($comment_arr);
+// var_dump($comment_main);
+// var_dump($comment_not_mine);
 }
+
 
 
 //изменение поста
@@ -80,7 +93,6 @@ if($_GET['tag']) {
     if (!$select_post_tag) {
         echo "PDO::errorInfo():";
         print_r($link->errorInfo());
-        echo("<body><div><h3>Please enter the correct data!</div></body>");
     } else $insert_tag_id = $select_post_tag->fetchAll();
     // print_r($insert_tag_id);
     $tag_id_for_post = $insert_tag_id[0][0];
@@ -96,3 +108,8 @@ if($_GET['del']) {
     header("Location:index.php");
 }
 
+
+//коментарии
+if (!empty($_POST['comment_name']) and !empty($_POST['comment_text'])) {
+    echo "dsfsdsfkaklsdfdklsfglkasdfgsadkjfgasdlfjh";
+}

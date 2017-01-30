@@ -3,11 +3,11 @@
 	width: 500px;
 	margin: 0px auto;
 	padding: 10px;
-	
 	text-align: justify;
 }
 #wrapper > div{
 	margin-bottom: 15px;
+	
 }
 #wrapper p{
 	margin-bottom: 5px;
@@ -15,6 +15,11 @@
 
 .date{
 	font-weight: bold;
+}
+
+.comment_userdate{
+	font-weight: bold;
+
 }
 
 textarea.form-control{
@@ -46,4 +51,7 @@ textarea.form-control{
 }
 input[type="submit"]{
 	margin-top:10px !important;
+}
+.comment-to-comment{
+	margin-left: 50px;
 }

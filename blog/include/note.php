@@ -1,14 +1,15 @@
 <?php
-
+ // error_reporting(E_ALL);
+ // ini_set('display_errors', 1);
 require_once '/var/www/html/practice_blog/include/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
 		<meta charset="utf-8">  
-		<title>Моя заметка номер 5</title>
-		<link rel="stylesheet" href="../bootstrap3/css/bootstrap.css">
-		<link rel="stylesheet" href="../css/styles.css">
+		<title>Моя заметка</title>
+		<link rel="stylesheet" href="../css/bootstrap.css">
+		<link rel="stylesheet" href="../css/styless.css">
 	</head>
 	<body>
 		<div id="wrapper">
@@ -34,12 +35,41 @@ require_once '/var/www/html/practice_blog/include/db.php';
 					     <?php  } ?>  
 				<?php } ?>
                 </p>
-                <?php endfor;?>
+                <h4>Комментарии:</h4>
+            <?php endfor;
+
+                    for ($k=0; $k < count($comment_main); $k++) { ?>
+                  		<div class="comment">
+                      		<p class="date"><?=$comment_main[$k]['comment_username'] . " " . $comment_main[$k]['comment_datetime']?> </p>
+                      		<p><?=$comment_main[$k]['comment_text']?></p>
+                      	</div>
+                      	<div style="padding-left:20px">
+                        <?php for ($i=0; $i < count($comment_not_mine); $i++) { 
+                              if ($comment_not_mine[$i]['comment_parent_id'] == $comment_main[$k]['comment_id']) { ?>
+                                  <div style="padding-left:<?php print (20*$i)?>px;">
+                                  <div class="Message">
+                                       <p class="date"><?=$comment_not_mine[$i]['comment_username'] . " " . $comment_not_mine[$i]['comment_datetime']?> </p>
+                      		           <p><?=$comment_not_mine[$i]['comment_text']?></p>
+                                  </div>
+                                  </div>
+                           <?php  }    
+                              }?>
+                         </div>
+                    <?php }?>
+                    <form method="POST">
+                            <p>
+                                <input name="comment_name" placeholder="ваше имя" class="form-control">
+                            </p>
+                            <p>
+                                <textarea placeholder="  ваш коментарий" name="comment_text" cols="77" rows="5"></textarea>
+                            </p>
+                            <p>
+                                <input name="save_comment" type="submit" class="btn btn-danger btn-block" value="Отправить">
+                            </p>
+                    </form>
 			</div>
 		</div>
 
 	</body>
 </html>
 
-
-			
