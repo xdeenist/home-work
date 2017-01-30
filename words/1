@@ -60,7 +60,7 @@ select post.post_text as post, count(tag.tag_title) as tag from post left JOIN p
 
 
 Используя GROUP BY выведите все тэги для каждого поста в поле tagsList. Используйте GROUP_CONCAT для объединения тэгов в одну строку.
-select post.post_text, group_concat(tag.tag_title) from post JOIN post_to_tag on post_to_tag.post_id = post.post_id JOIN tag ON tag.tag_id = post_to_tag.tag_id group by post.post_id;
+select post.post_text, group_concat(tag.tag_title) from post JOIN post_to_tag USING (post_id) JOIN tag USING (tag_id) group by post.post_id;
 
  Сделайте поиск постов по тэгу, используя WHERE и какой-то tag_title. Отсортируйте выборку по дате в обратном порядке (самые свежие посты - вверху).
 select post.post_text from post INNER JOIN post_to_tag on post_to_tag.post_id = post.post_id WHERE post_to_tag.tag_id = 1 AND post_to_tag.tag_id = 2 ORDER BY post.post_create_datetime DESC;
