@@ -1,7 +1,9 @@
 <?php
  // error_reporting(E_ALL);
  // ini_set('display_errors', 1);
+session_start();
 require_once '/var/www/html/practice_blog/include/db.php';
+require_once '/var/www/html/practice_blog/include/valid.php';
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -12,6 +14,10 @@ require_once '/var/www/html/practice_blog/include/db.php';
 		<link rel="stylesheet" href="../css/styless.css">
 	</head>
 	<body>
+			<?php if ($_SESSION['logined'] == true ) {
+				echo "dfsgsdfsdfgsdfgfgsdfgdfgsdfgsdff";
+			}
+			var_dump($_SESSION['logined']);?> 
 		<div id="wrapper">
             <?php for($i=0;$i<count($res_select_update);$i++):?>
 			<h1><?=$res_select_update[$i]['post_title']?></h1>
@@ -43,7 +49,10 @@ require_once '/var/www/html/practice_blog/include/db.php';
                   		<div class="comment">
                       		<p class="date"><?=$comment_main[$k]['comment_username'] . " " . $comment_main[$k]['comment_datetime']?> </p>
                       		<p><?=$comment_main[$k]['comment_text']?></p>
-                      		<a href='?id=<?=$_GET['id']?>&comment=<?=$comment_main[$k]['comment_id']?>'>Ответить</a>
+                      		<a href='?id=<?=$_GET['id']?>&comment=<?=$comment_main[$k]['comment_id']?>'>Ответить</a> 
+                      		<?php  if ($_SESSION['logined']){?> 
+                      		| <a href='?id=<?=$_GET['id']?>&comment_del=<?=$comment_main[$k]['comment_id']?>'>Удалить</a>
+                      		<?php }?>
                       	</div>
                       	<div style="padding-left:20px">
                         <?php for ($i=0; $i < count($comment_not_mine); $i++) { 
@@ -53,7 +62,10 @@ require_once '/var/www/html/practice_blog/include/db.php';
                                        <p class="date"><?=$comment_not_mine[$i]['comment_username'] . " " . $comment_not_mine[$i]['comment_datetime']?> </p>
                       		           <p><?=$comment_not_mine[$i]['comment_text']?></p>
                                   </div>
-                                  <a href='?id=<?=$_GET['id']?>&comment=<?=$comment_main[$k]['comment_id']?>'>Ответить</a>
+                                  <a href='?id=<?=$_GET['id']?>&comment=<?=$comment_main[$k]['comment_id']?>'>Ответить</a> 
+                                  <?php  if ($_SESSION['logined']){?> 
+                                  | <a href='?id=<?=$_GET['id']?>&comment_del=<?=$comment_not_mine[$i]['comment_id']?>'>Удалить</a> 
+                                  <?php }?>
                                   </div>
                                <?php }    
                          }?>

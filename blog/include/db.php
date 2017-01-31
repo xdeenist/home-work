@@ -73,7 +73,6 @@ if($_POST['save']) {
         print_r($link->errorInfo());
         echo("<body><div><h3>Please enter the correct data!</div></body>");
     } else $sample = $update->fetchAll();
-        
         if (!empty($_POST['tag_edit'])) {
             $tag_arr_edit = explode(',', $_POST['tag_edit']);
             foreach ($tag_arr_edit as $tags_edit) {
@@ -116,6 +115,12 @@ if (!empty($_POST['comment_name']) and !empty($_POST['comment_text'])) {
         
     } else {
            $insert = $link ->query("INSERT INTO comment SET post_id = '{$_GET['id']}', comment_parent_id = '{$_GET['comment']}', comment_username = '{$_POST['comment_name']}', comment_text = '{$_POST['comment_text']}'");
-           print_r($_GET['comment']);
     }   
+}
+
+
+//удаление комментария
+if ($_GET['comment_del']) {
+    $delete_comment = $link ->query("DELETE FROM comment WHERE comment_id=" . $_GET['comment_del']);
+    //header("Location:include/edit.php?id='$_GET['id']'");
 }

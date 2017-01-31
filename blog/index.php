@@ -14,6 +14,7 @@ require_once '/var/www/html/practice_blog/include/valid.php';
 		<link rel="stylesheet" href="css/styless.css">
 	</head>
 	<body>
+	<?php var_dump($_SESSION['logined']);?> 
     <?php  if (!$_SESSION['logined']):?>
         <p class="error"><?=$error_login;?></p>
     <form action="" method="post" class="admin">
