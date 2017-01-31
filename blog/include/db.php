@@ -109,7 +109,13 @@ if($_GET['del']) {
 }
 
 
-//коментарии
+//добавление комментария
 if (!empty($_POST['comment_name']) and !empty($_POST['comment_text'])) {
-    echo "dsfsdsfkaklsdfdklsfglkasdfgsadkjfgasdlfjh";
+    if ($_GET['comment'] == 'mine') {
+        $insert = $link ->query("INSERT INTO comment SET post_id = '{$_GET['id']}', comment_username = '{$_POST['comment_name']}', comment_text = '{$_POST['comment_text']}'");
+        
+    } else {
+           $insert = $link ->query("INSERT INTO comment SET post_id = '{$_GET['id']}', comment_parent_id = '{$_GET['comment']}', comment_username = '{$_POST['comment_name']}', comment_text = '{$_POST['comment_text']}'");
+           print_r($_GET['comment']);
+    }   
 }

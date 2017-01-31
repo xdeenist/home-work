@@ -8,14 +8,14 @@ require_once '/var/www/html/practice_blog/include/db.php';
 <html lang="ru">
 	<head>
 		<meta charset="utf-8">  
-		<title>Список записей по тегу</title>
+		<title>Список записей по тегу <?="#".$_GET['tag']; ?></title>
 		<link rel="stylesheet" href="../css/bootstrap.css">
 		<link rel="stylesheet" href="../css/styless.css">
 	</head>
 	<body>
 
 		<div id="wrapper">
-			<h1>Записи по тегу: <?="#".$_GET['tag'] ?></h1>
+			<h1>Записи по тегу: <?="#".$_GET['tag']; ?></h1>
 			
 			<p class="nav">
 				<a href="../index.php">на главную</a>

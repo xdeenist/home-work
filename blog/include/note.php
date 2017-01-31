@@ -7,7 +7,7 @@ require_once '/var/www/html/practice_blog/include/db.php';
 <html lang="ru">
 	<head>
 		<meta charset="utf-8">  
-		<title>Моя заметка</title>
+		<title>Моя заметка № <?=$_GET['id']; ?></title>
 		<link rel="stylesheet" href="../css/bootstrap.css">
 		<link rel="stylesheet" href="../css/styless.css">
 	</head>
@@ -35,6 +35,7 @@ require_once '/var/www/html/practice_blog/include/db.php';
 					     <?php  } ?>  
 				<?php } ?>
                 </p>
+                <a href='?id=<?=$_GET['id']?>&comment=mine'>Оставить комментарий</a>
                 <h4>Комментарии:</h4>
             <?php endfor;
 
@@ -42,6 +43,7 @@ require_once '/var/www/html/practice_blog/include/db.php';
                   		<div class="comment">
                       		<p class="date"><?=$comment_main[$k]['comment_username'] . " " . $comment_main[$k]['comment_datetime']?> </p>
                       		<p><?=$comment_main[$k]['comment_text']?></p>
+                      		<a href='?id=<?=$_GET['id']?>&comment=<?=$comment_main[$k]['comment_id']?>'>Ответить</a>
                       	</div>
                       	<div style="padding-left:20px">
                         <?php for ($i=0; $i < count($comment_not_mine); $i++) { 
@@ -51,11 +53,16 @@ require_once '/var/www/html/practice_blog/include/db.php';
                                        <p class="date"><?=$comment_not_mine[$i]['comment_username'] . " " . $comment_not_mine[$i]['comment_datetime']?> </p>
                       		           <p><?=$comment_not_mine[$i]['comment_text']?></p>
                                   </div>
+                                  <a href='?id=<?=$_GET['id']?>&comment=<?=$comment_main[$k]['comment_id']?>'>Ответить</a>
                                   </div>
-                           <?php  }    
-                              }?>
+                               <?php }    
+                         }?>
                          </div>
-                    <?php }?>
+                                
+
+                    <?php }
+                if (!empty($_GET['comment'])) {
+                    ?>
                     <form method="POST">
                             <p>
                                 <input name="comment_name" placeholder="ваше имя" class="form-control">
@@ -67,6 +74,7 @@ require_once '/var/www/html/practice_blog/include/db.php';
                                 <input name="save_comment" type="submit" class="btn btn-danger btn-block" value="Отправить">
                             </p>
                     </form>
+                 <?php }?>
 			</div>
 		</div>
 
