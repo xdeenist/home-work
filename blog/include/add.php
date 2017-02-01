@@ -1,7 +1,7 @@
 <?php
  //error_reporting(E_ALL);
  //ini_set('display_errors', 1);
-require_once '/var/www/html/practice_blog/include/db.php';
+require_once '/var/www/html/blog/include/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -9,7 +9,7 @@ require_once '/var/www/html/practice_blog/include/db.php';
 		<meta charset="utf-8">  
 		<title>Новая запись</title>
 		<link rel="stylesheet" href="../css/bootstrap.css">
-		<link rel="stylesheet" href="../css/styles.css">
+		<link rel="stylesheet" href="../css/styless.css">
 	</head>
 	<body>
 		<div id="wrapper">

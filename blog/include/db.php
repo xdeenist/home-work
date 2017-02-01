@@ -49,18 +49,28 @@ if($_GET['id']){
     $getid = $_GET['id'];
     $select_update = $link->query("SELECT post.*, group_concat(tag.tag_title) as tags FROM post LEFT JOIN post_to_tag USING (post_id) LEFT JOIN tag USING (tag_id) WHERE post_id='$getid' group by post.post_id");
     $res_select_update = $select_update ->fetchAll(PDO::FETCH_ASSOC);
-    $select_update_com = $link ->query("SELECT comment.* FROM comment LEFT JOIN post USING (post_id) WHERE post_id='$getid' ");
-    $select_comment = $select_update_com ->fetchAll(PDO::FETCH_ASSOC);
-    //var_dump($select_comment);
-    for ($i=0; $i < count($select_comment); $i++) { 
-        if (is_null($select_comment[$i]['comment_parent_id'])) {
-            $comment_arr_main[$i] = $select_comment[$i];
-        } else  $comment_arr[$i] = $select_comment[$i]; 
-    }
-$comment_main = array_values($comment_arr_main);
-$comment_not_mine = array_values($comment_arr);
+
+
+    // $select_update_com = $link ->query("SELECT * FROM comment WHERE post_id='$getid' and comment_parent_id = 'NULL' ");
+
+
+    //  $select_comment = $select_update_com ->fetchAll(PDO::FETCH_ASSOC);
+    //  var_dump($select_comment);
+//     for ($i=0; $i < count($select_comment); $i++) { 
+//         if (is_null($select_comment[$i]['comment_parent_id'])) {
+//             $comment_arr_main[$i] = $select_comment[$i];
+//         } else  $comment_arr[$i] = $select_comment[$i]; 
+//     }
+
+// $comment_main = array_values($comment_arr_main);
+// $comment_not_main = array_values($comment_arr);
+
 // var_dump($comment_main);
 // var_dump($comment_not_mine);
+// foreach ($comment_not_mine as $value) {
+//     $row_comments[$value['comment_id']] = $value;
+// }
+// var_dump($row_comments);
 }
 
 
@@ -122,5 +132,4 @@ if (!empty($_POST['comment_name']) and !empty($_POST['comment_text'])) {
 //удаление комментария
 if ($_GET['comment_del']) {
     $delete_comment = $link ->query("DELETE FROM comment WHERE comment_id=" . $_GET['comment_del']);
-    //header("Location:include/edit.php?id='$_GET['id']'");
 }

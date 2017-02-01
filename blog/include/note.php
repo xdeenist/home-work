@@ -1,8 +1,10 @@
 <?php
- // error_reporting(E_ALL);
- // ini_set('display_errors', 1);
-session_start();
-require_once '/var/www/html/practice_blog/include/db.php';
+// ini_set('error_reporting', E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// session_start();
+require_once '/var/www/html/blog/include/db.php';
+require_once '/var/www/html/blog/include/function.php';
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -23,52 +25,35 @@ require_once '/var/www/html/practice_blog/include/db.php';
 				<p class="date"><?=$res_select_update[$i]['post_create_datetime']?>
 				</p>
 				<p>
-                    <?=$res_select_update[$i]['post_text'];?>
-                </p>
-                <p>
-                	<?php if ($res_select_update[$i]['tags']) {   // выборка тегов
-					     $value['tags'] = explode(',', $res_select_update[$i]['tags']);
-					        foreach ($value['tags'] as $tag) {
+        <?=$res_select_update[$i]['post_text'];?>
+        </p>
+        <p>
+        <?php if ($res_select_update[$i]['tags']) {   // выборка тегов
+					       $value['tags'] = explode(',', $res_select_update[$i]['tags']);
+					       foreach ($value['tags'] as $tag) {
 					     	    //print_r($tag);?>
-                                <span class="print_tag">
-                                    <a href='../include/posttotag.php?tag=<?=$tag?>'><?="#".$tag?></a>
-                                  </span>
-					     <?php  } ?>  
+                         <span class="print_tag">
+                         <a href='../include/posttotag.php?tag=<?=$tag?>'><?="#".$tag?></a>
+                         </span>
+					       <?php  } ?>  
 				<?php } ?>
                 </p>
                 <a href='?id=<?=$_GET['id']?>&comment=mine'>Оставить комментарий</a>
                 <h4>Комментарии:</h4>
-            <?php endfor;
+            <?php endfor; ?>
+                         
+                              <?php
+                                  $res_row = $link ->query("SELECT * FROM comment WHERE post_id='$getid' and comment_parent_id is NULL ");   
+                                while ( $row = $res_row ->fetch(PDO::FETCH_ASSOC)) {
+                                       comment($row);
+                                }
+                                 
+                                  
+                                  
+                              ?>
+                         
 
-                    for ($k=0; $k < count($comment_main); $k++) { ?>
-                  		<div class="comment">
-                      		<p class="date"><?=$comment_main[$k]['comment_username'] . " " . $comment_main[$k]['comment_datetime']?> </p>
-                      		<p><?=$comment_main[$k]['comment_text']?></p>
-                      		<a href='?id=<?=$_GET['id']?>&comment=<?=$comment_main[$k]['comment_id']?>'>Ответить</a> 
-                      		<?php  if ($_SESSION['logined']){?> 
-                      		| <a href='?id=<?=$_GET['id']?>&comment_del=<?=$comment_main[$k]['comment_id']?>'>Удалить</a>
-                      		<?php }?>
-                      	</div>
-                      	<div style="padding-left:20px">
-                        <?php for ($i=0; $i < count($comment_not_mine); $i++) { 
-                              if ($comment_not_mine[$i]['comment_parent_id'] == $comment_main[$k]['comment_id']) { ?>
-                                  <div style="padding-left:<?php print (20*$i)?>px;">
-                                  <div class="Message">
-                                       <p class="date"><?=$comment_not_mine[$i]['comment_username'] . " " . $comment_not_mine[$i]['comment_datetime']?> </p>
-                      		           <p><?=$comment_not_mine[$i]['comment_text']?></p>
-                                  </div>
-                                  <a href='?id=<?=$_GET['id']?>&comment=<?=$comment_main[$k]['comment_id']?>'>Ответить</a> 
-                                  <?php  if ($_SESSION['logined']){?> 
-                                  | <a href='?id=<?=$_GET['id']?>&comment_del=<?=$comment_not_mine[$i]['comment_id']?>'>Удалить</a> 
-                                  <?php }?>
-                                  </div>
-                               <?php }    
-                         }?>
-                         </div>
-                                
-
-                    <?php }
-                if (!empty($_GET['comment'])) {
+               <?php if (!empty($_GET['comment'])) {
                     ?>
                     <form method="POST">
                             <p>

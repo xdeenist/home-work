@@ -1,7 +1,7 @@
 <?php
  //error_reporting(E_ALL);
  //ini_set('display_errors', 1);
-require_once '/var/www/html/practice_blog/include/db.php';
+require_once '/var/www/html/blog/include/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="ru">

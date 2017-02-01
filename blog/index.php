@@ -2,8 +2,8 @@
   // error_reporting(E_ALL);
   // ini_set('display_errors', 1);
 session_start();
-require_once '/var/www/html/practice_blog/include/db.php';
-require_once '/var/www/html/practice_blog/include/valid.php';
+require_once '/var/www/html/blog/include/db.php';
+require_once '/var/www/html/blog/include/valid.php';
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -21,7 +21,6 @@ require_once '/var/www/html/practice_blog/include/valid.php';
         <input type="password" name="password" placeholder="Введите пароль" class="pass">
         <input name="sub" type="submit" value="Отправить">
     </form>
-    
     <?php else: echo "Welcome " . $_SESSION['user']. " ! ";?>
         <a href='?exit' class="ex">Выход</a>
     <?php endif; ?>
