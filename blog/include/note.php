@@ -40,20 +40,13 @@ require_once '/var/www/html/blog/include/function.php';
                 </p>
                 <a href='?id=<?=$_GET['id']?>&comment=mine'>Оставить комментарий</a>
                 <h4>Комментарии:</h4>
-            <?php endfor; ?>
-                         
-                              <?php
-                                  $res_row = $link ->query("SELECT * FROM comment WHERE post_id='$getid' and comment_parent_id is NULL ");   
+            <?php endfor; 
+                   // выборка родительских комментариев 
+                   $res_row = $link ->query("SELECT * FROM comment WHERE post_id='$getid' and comment_parent_id is NULL ");   
                                 while ( $row = $res_row ->fetch(PDO::FETCH_ASSOC)) {
                                        comment($row);
                                 }
-                                 
-                                  
-                                  
-                              ?>
-                         
-
-               <?php if (!empty($_GET['comment'])) {
+                   if (!empty($_GET['comment'])) {
                     ?>
                     <form method="POST">
                             <p>
