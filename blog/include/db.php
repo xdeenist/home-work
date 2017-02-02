@@ -64,12 +64,22 @@ if($_POST['save']) {
         if (!empty($_POST['tag_edit'])) {
             $tag_arr_edit = explode(',', $_POST['tag_edit']);
             foreach ($tag_arr_edit as $tags_edit) {
-                $insert_edit = $link ->query("INSERT INTO tag SET tag_title ='$tags_edit'");
-                $insert_tag_id_edit = $link->lastInsertId(); 
-                $insert_edit_tag = $link ->query("INSERT INTO post_to_tag SET post_to_tag.post_id = '$getid', post_to_tag.tag_id = '$insert_tag_id_edit'");
+                    //проверяет есть ли такой тег к таблице тегов
+                    $insert_valid_edit = $link ->query("SELECT * FROM tag WHERE tag_title ='$tags_edit'");
+                    $result_valid_edit = $insert_valid_edit->fetchAll(PDO::FETCH_ASSOC);
+                if (!empty($result_valid_edit)) { 
+                    //если есть - добавляет связку к существующему
+                    $ins_tag_id_edit = $result_valid_edit[0]['tag_id'];
+                    $insert_edit_tag = $link ->query("INSERT INTO post_to_tag SET post_to_tag.post_id = '$getid', post_to_tag.tag_id = '$ins_tag_id_edit'");
+                } else {
+                        $insert = $link ->query("INSERT INTO tag SET tag_title ='$tags_edit'"); 
+                        // если нет, то добавляет
+                        $insert_tag_id_edit = $link->lastInsertId(); //id последней добавленной строки
+                        $insert_post_tag = $link ->query("INSERT INTO post_to_tag SET post_to_tag.post_id = '$getid', post_to_tag.tag_id = '$insert_tag_id_edit'");
+                }
             }
+            header("Location:../index.php");
         }
-    header("Location:../index.php");
 }
 
 
