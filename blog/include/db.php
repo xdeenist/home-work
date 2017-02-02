@@ -10,8 +10,8 @@ try {
     die();
 } 
 //изъятие всех постов из базы
-$select = $link->query("SELECT post.* , group_concat(tag.tag_title) as tags FROM post LEFT JOIN post_to_tag USING (post_id) LEFT JOIN tag USING (tag_id) group by post.post_id DESC");
-$res_select = $select->fetchAll(PDO::FETCH_ASSOC);
+// $select = $link->query("SELECT post.* , group_concat(tag.tag_title) as tags FROM post LEFT JOIN post_to_tag USING (post_id) LEFT JOIN tag USING (tag_id) group by post.post_id DESC");
+// $res_select = $select->fetchAll(PDO::FETCH_ASSOC);
 
 
 
@@ -41,6 +41,8 @@ if (!empty($_POST['post_title_add'])and !empty($_POST['post_min_text_add'])){
         }
     }
 }
+
+
 
 
 
@@ -78,8 +80,8 @@ if($_POST['save']) {
                         $insert_post_tag = $link ->query("INSERT INTO post_to_tag SET post_to_tag.post_id = '$getid', post_to_tag.tag_id = '$insert_tag_id_edit'");
                 }
             }
-            header("Location:../index.php");
         }
+    header("Location:../index.php");
 }
 
 

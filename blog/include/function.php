@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once'/var/www/html/blog/include/note.php';
+// require_once'/var/www/html/blog/include/note.php';
+
 
 //рекурсивная функция изъятия комментариев
 function comment($row){ ?>

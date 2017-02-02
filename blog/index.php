@@ -26,40 +26,15 @@ require_once '/var/www/html/blog/include/valid.php';
     <?php endif; ?>
 		<div id="wrapper">
 			<h1>Список записей</h1>
-            <?php for($i=0;$i<count($res_select);$i++):?>
-			<div class="note">
-				<p>
-					<span class="date"><?=$res_select[$i]['post_create_datetime'];?></span>
-					<a href="include/note.php?id=<?=$res_select[$i]['post_id']?>"><?=$res_select[$i]['post_title'];?></a>
-				</p>
-				<p>
-					<?=$res_select[$i]['post_min_text'];?>
-				</p>
-				<?php if ($res_select[$i]['tags']) {   // выборка тегов
-					     $value['tags'] = explode(',', $res_select[$i]['tags']);
-					     foreach ($value['tags'] as $tag) {
-					     	    //print_r($tag);?>
-                                  <span class="print_tag">
-                                        <a href='include/posttotag.php?tag=<?=$tag?>'><?="#".$tag?></a>
-                                  </span>
-					     <?php  } ?>  
-				<?php } ?>
-                <?php if($_SESSION['logined']): //кнопки удалить и редактировать?> 
-				<p class="nav">
-					<a href="index.php?page=<?=$res_select[$i]['post_id']?>&del=<?=$res_select[$i]['post_id']?>">удалить</a> |
-					<a href="include/edit.php?id=<?=$res_select[$i]['post_id']?>">редактировать</a>
-				</p>
-                <?php endif;?>
-			</div>
-            <?php endfor;?>
-
+                 <?php
+                 require_once '/var/www/html/blog/include/pagination.php';
+                 ?>
             <?php if($_SESSION['logined']): ?>
 			<div>
 				<a href="include/add.php" class="btn btn-danger btn-block">Добавить запись</a>
 			</div>
             <?php endif; ?>
 		</div>
-
 	</body>
 </html>
 
