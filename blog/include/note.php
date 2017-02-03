@@ -41,7 +41,7 @@ require_once '/var/www/html/blog/include/function.php';
                 <a href='?id=<?=$_GET['id']?>&comment=mine'>Оставить комментарий</a>
                 <h4>Комментарии:</h4>
             <?php endfor; 
-                   // выборка родительских комментариев 
+                   // выборка родительских комментариев с null
                    $res_row = $link ->query("SELECT * FROM comment WHERE post_id='$getid' and comment_parent_id is NULL ");   
                                 while ( $row = $res_row ->fetch(PDO::FETCH_ASSOC)) {
                                        comment($row);

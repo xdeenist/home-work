@@ -17,13 +17,17 @@ require_once '/var/www/html/blog/include/db.php';
 			<p class="nav">
 				<a href="../index.php">на главную</a>
 			</p>
-
+			<p class="error" style="color: red; font-weight: bolder; text-align: center";><?=$error_tag;?></p>
 			<div>
                 <?php for($i=0;$i<count($res_select_update);$i++):?>
 				<form action="" method="POST">
 					<p><input name="time_edit" class="form-control" value="<?=$res_select_update[$i]['post_create_datetime']?>"></p>
 					<p><input name="author_edit" class="form-control" value="<?=$res_select_update[$i]['post_title']?>"></p>
-					<p><input name="tag_edit" placeholder="можно добавить новые теги" class="form-control"></p>
+				    <?php if ($res_select_update[$i]['tags']) {   // выборка тегов?>
+                            <p><input name="tag_edit" class="form-control" value="<?=$res_select_update[$i]['tags']?>"></p>
+					     <!-- $value['tags'] = explode(',', $res_select_update[$i]['tags']); -->
+                            
+				     <?php } else {?> <p><input name="tag_edit" placeholder="можно добавить новые теги" class="form-control"></p><?php }?>
 					<p>
                         <textarea placeholder="краткое содержание" class="form-control" name="up_min_article">
                              <?=$res_select_update[$i]['post_min_text']?>

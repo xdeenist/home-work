@@ -1,26 +1,33 @@
 <?php
 session_start();
 require_once '/var/www/html/blog/include/db.php';
-require_once '/var/www/html/blog/include/valid.php';
+
 
  
 // Результирующий массив с элементами, выбранными с учётом LIMIT:
 $items    = array();
 // Число вообще всех элементов ( без LIMIT ) по нужным критериям.
-$allItems = 0;
- // HTML - код постраничной навигации.
+$allItems_count = 0;
+ // код постраничной навигации.
 $html     = NULL;
 // Количество элементов на странице. 
 $limit    = 4;
-// Количество страничек, нужное для отображения полученного числа элементов:
+// Количество страничек, нужное для отображения полученного числа элементов
 $pageCount = 0;
  
-// Содержит наш GET-параметр из строки запроса. 
+//get из строки запроса. 
 $start    = isset($_GET['page'])   ? intval( $_GET['page'] )   : 0 ;
+//запрос для выборки целевых элементов прямое 
+// Запрос для выборки целевых элементов:
+if ($_GET['sort'] == "new") {
+	$sql = $link->query("SELECT post.* , group_concat(tag.tag_title) as tags FROM post LEFT JOIN post_to_tag USING (post_id) LEFT JOIN tag USING (tag_id) group by post.post_id  LIMIT $start,$limit ");
+} else $sql = $link->query("SELECT post.* , group_concat(tag.tag_title) as tags FROM post LEFT JOIN post_to_tag USING (post_id) LEFT JOIN tag USING (tag_id) group by post.post_id DESC LIMIT $start,$limit ");
 
  
-// Запрос для выборки целевых элементов:
-$sql = $link->query("SELECT post.* , group_concat(tag.tag_title) as tags FROM post LEFT JOIN post_to_tag USING (post_id) LEFT JOIN tag USING (tag_id) group by post.post_id DESC LIMIT $start,$limit ");
+// Запрос для выборки целевых элементов обратное
+
+
+
 
 $res_select = $sql->fetchAll(PDO::FETCH_ASSOC);
 // любимый phphell для вывода содержимого на страницу 

@@ -17,6 +17,8 @@ require_once '/var/www/html/blog/include/db.php';
 			<p class="nav">
 				<a href="../index.php">на главную</a>
 			</p>
+			<p class="error" style="color: red; font-weight: bolder; text-align: center";><?=$error_post;?>
+			</p>
 			<!-- 
 			
 				После сохранения перебрасывает 
@@ -30,7 +32,7 @@ require_once '/var/www/html/blog/include/db.php';
 					<p><input name="tag_add" class="form-control" placeholder="Теги (через запятую, без '#')"></p>
 					<p><textarea name="post_min_text_add" placeholder="Краткое содержание статьи" class="form-control" cols="10" rows="20"></textarea></p>
 					<p><textarea name="post_text_add" class="form-control" placeholder="Текст записи"></textarea></p>
-					<p><input type="submit" class="btn btn-danger btn-block" value="Сохранить"></p>
+					<p><input type="submit" name="add_save" class="btn btn-danger btn-block" value="Сохранить"></p>
 				</form>
 			</div>
 			
