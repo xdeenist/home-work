@@ -21,18 +21,23 @@ require_once '/var/www/html/blog/include/db.php';
 			<div>
                 <?php for($i=0;$i<count($res_select_update);$i++):?>
 				<form action="" method="POST">
+				    <p>Редактировать время</p>
 					<p><input name="time_edit" class="form-control" value="<?=$res_select_update[$i]['post_create_datetime']?>"></p>
+					<p>Редактировать имя</p>
 					<p><input name="author_edit" class="form-control" value="<?=$res_select_update[$i]['post_title']?>"></p>
 				    <?php if ($res_select_update[$i]['tags']) {   // выборка тегов?>
+				            <p>Редактировать теги</p>
                             <p><input name="tag_edit" class="form-control" value="<?=$res_select_update[$i]['tags']?>"></p>
 					     <!-- $value['tags'] = explode(',', $res_select_update[$i]['tags']); -->
                             
 				     <?php } else {?> <p><input name="tag_edit" placeholder="можно добавить новые теги" class="form-control"></p><?php }?>
+				     <p>Редактировать краткое содержание</p>
 					<p>
                         <textarea placeholder="краткое содержание" class="form-control" name="up_min_article">
                              <?=$res_select_update[$i]['post_min_text']?>
                         </textarea>
                     </p>
+                    <p>Редактировать текст поста</p>
                     <p>
 					    <textarea name="full_edit" class="form-control">
                         <?=$res_select_update[$i]['post_text']?>

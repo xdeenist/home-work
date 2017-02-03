@@ -59,6 +59,21 @@ require_once '/var/www/html/blog/include/function.php';
                                 <input name="save_comment" type="submit" class="btn btn-danger btn-block" value="Отправить">
                             </p>
                     </form>
+                 <?php }
+                    if (!empty($_GET['comment_edit'])) {
+                    ?>
+                    <form method="POST">
+                            <p class="error" style="color: red; font-weight: bolder; text-align: center";><?=$error_comment_edit;?></p>
+                            <p>
+                                <input name="comment_edit_name" placeholder="ваше имя" class="form-control" value="<?=$comment_sql_result['comment_username']?>">
+                            </p>
+                            <p>
+                                <textarea placeholder="  ваш коментарий" name="comment_edit_text" cols="77" rows="5" ><?=$comment_sql_result['comment_text']?></textarea>
+                            </p>
+                            <p>
+                                <input name="save_edit_comment" type="submit" class="btn btn-danger btn-block" value="Отправить">
+                            </p>
+                    </form>
                  <?php }?>
 			</div>
 		</div>

@@ -62,7 +62,7 @@ if ($_POST['add_save']) {
 
 
 
-//изъятие полного 
+//изъятие полного поста и тегов к нему в виде строки
 if($_GET['id']){
     $getid = $_GET['id'];
     $select_update = $link->query("SELECT post.*, group_concat(tag.tag_title) as tags FROM post LEFT JOIN post_to_tag USING (post_id) LEFT JOIN tag USING (tag_id) WHERE post_id='$getid' group by post.post_id");
@@ -138,10 +138,25 @@ if (!empty($_POST['comment_name']) and !empty($_POST['comment_text'])) {
     } else {
            $insert = $link ->query("INSERT INTO comment SET post_id = '{$_GET['id']}', comment_parent_id = '{$_GET['comment']}', comment_username = '{$_POST['comment_name']}', comment_text = '{$_POST['comment_text']}'");
     }   
-}
+} 
 
 
 //удаление комментария
 if ($_GET['comment_del']) {
     $delete_comment = $link ->query("DELETE FROM comment WHERE comment_id=" . $_GET['comment_del']);
+}
+
+
+//извлечения комментария для редактирования
+if (!empty($_GET['comment_edit'])) {
+    $comment_edit_sql = $link->query("SELECT * FROM comment WHERE comment_id=" . $_GET['comment_edit']);
+    $comment_sql_result = $comment_edit_sql ->fetch(PDO::FETCH_ASSOC);
+}
+ 
+//добавление отредактированноого комментария
+if ($_POST['save_edit_comment']) {
+    if (!empty($_POST['comment_edit_name']) and !empty($_POST['comment_edit_text'])) {
+
+        $insert_edit_comment = $link ->query("UPDATE comment SET comment_username = '{$_POST['comment_edit_name']}', comment_text = '{$_POST['comment_edit_text']}' WHERE comment_id=" . $_GET['comment_edit']);
+    } else {$error_comment_edit= "Поля не могут быть пусты";}
 }
