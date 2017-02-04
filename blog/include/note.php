@@ -11,6 +11,7 @@ require_once '/var/www/html/blog/include/function.php';
 	<head>
 		<meta charset="utf-8">  
 		<title>Моя заметка № <?=$_GET['id']; ?></title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" href="../css/bootstrap.css">
 		<link rel="stylesheet" href="../css/styless.css">
 	</head>
@@ -37,7 +38,7 @@ require_once '/var/www/html/blog/include/function.php';
 					       <?php  } ?>  
 				<?php } ?>
                 </p>
-                <a href='?id=<?=$_GET['id']?>&comment=mine'>Оставить комментарий</a>
+                <a href='?id=<?=$_GET['id']?>&comment=mine#answer'>Оставить комментарий</a>
                 <h4>Комментарии:</h4>
             <?php // выборка родительских комментариев с null
                    $res_row = $link ->query("SELECT * FROM comment WHERE post_id='$getid' and comment_parent_id is NULL ");   
@@ -60,7 +61,7 @@ require_once '/var/www/html/blog/include/function.php';
                  <?php }
                     if (!empty($_GET['comment_edit'])) {
                     ?>
-                    <form method="POST">
+                    <form method="POST" >
                             <p class="error" style="color: red; font-weight: bolder; text-align: center";><?=$error_comment_edit;?></p>
                             <p>
                                 <input name="comment_edit_name" placeholder="ваше имя" class="form-control" value="<?=$comment_sql_result['comment_username']?>">
@@ -73,9 +74,11 @@ require_once '/var/www/html/blog/include/function.php';
                             </p>
                     </form>
                  <?php }?>
+                 <div id="answer"></div>
 			</div>
 		</div>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="../js/scroll.js"></script>
 	</body>
 </html>
 
