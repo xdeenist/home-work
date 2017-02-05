@@ -5,6 +5,7 @@
 // session_start();
 require_once '/var/www/html/blog/include/db.php';
 require_once '/var/www/html/blog/include/function.php';
+$img = "1.jpg";
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -12,7 +13,7 @@ require_once '/var/www/html/blog/include/function.php';
 		<meta charset="utf-8">  
 		<title>Моя заметка № <?=$_GET['id']; ?></title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-		<link rel="stylesheet" href="../css/bootstrap.css">
+		<!-- <link rel="stylesheet" href="../css/bootstrap.css"> -->
 		<link rel="stylesheet" href="../css/styless.css">
 	</head>
 	<body>
@@ -22,20 +23,22 @@ require_once '/var/www/html/blog/include/function.php';
 				<p class="nav right">
 					<a href="../index.php">на главную</a>
 				</p>
-				<p class="date"><?=$res_select_update[0]['post_create_datetime']?>
-				</p>
-				<p>
-        <?=$res_select_update[0]['post_text'];?>
-        </p>
-        <p>
-        <?php if ($res_select_update[0]['tags']) {   // выборка тегов
+				<p class="date"><?=$res_select_update[0]['post_create_datetime']?></p>
+				<p class="posttext">
+                <?php if($res_select_img[0]['image']){ ?>
+                        <img src="../upload_img/<?=$res_select_img[0]['image'];?>" width="250" height="250" style=" margin-top:  8px; margin-right: 8px; ">
+                <?php } ?>
+                <?=$res_select_update[0]['post_text'];?>
+                </p>
+                <p>
+                <?php if ($res_select_update[0]['tags']) {   // выборка тегов
 					       $value['tags'] = explode(',', $res_select_update[0]['tags']);
-					       foreach ($value['tags'] as $tag) {
+					    foreach ($value['tags'] as $tag) {
 					     	    //print_r($tag);?>
                          <span class="print_tag">
                          <a href='../include/posttotag.php?tag=<?=$tag?>'><?="#".$tag?></a>
                          </span>
-					       <?php  } ?>  
+					    <?php  } ?>  
 				<?php } ?>
                 </p>
                 <a href='?id=<?=$_GET['id']?>&comment=mine#answer'>Оставить комментарий</a>
@@ -45,7 +48,7 @@ require_once '/var/www/html/blog/include/function.php';
                                 while ( $row = $res_row ->fetch(PDO::FETCH_ASSOC)) {
                                        comment($row);
                                 }
-                   if (!empty($_GET['comment'])) {
+                if (!empty($_GET['comment'])) {
                     ?>
                     <form method="POST">
                             <p>
@@ -58,7 +61,7 @@ require_once '/var/www/html/blog/include/function.php';
                                 <input name="save_comment" type="submit" class="btn btn-danger btn-block" value="Отправить">
                             </p>
                     </form>
-                 <?php }
+                <?php }
                     if (!empty($_GET['comment_edit'])) {
                     ?>
                     <form method="POST" >
@@ -77,8 +80,8 @@ require_once '/var/www/html/blog/include/function.php';
                  <div id="answer"></div>
 			</div>
 		</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="../js/scroll.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="../js/scroll.js"></script>
 	</body>
 </html>
 

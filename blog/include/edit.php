@@ -2,6 +2,7 @@
  //error_reporting(E_ALL);
  //ini_set('display_errors', 1);
 require_once '/var/www/html/blog/include/db.php';
+require_once '/var/www/html/blog/include/img.php';
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -19,7 +20,7 @@ require_once '/var/www/html/blog/include/db.php';
 			</p>
 			<p class="error" style="color: red; font-weight: bolder; text-align: center";><?=$error_tag;?></p>
 			<div>
-				<form action="" method="POST">
+				<form action="" method="POST" enctype="multipart/form-data">
 				    <p>Редактировать время</p>
 					<p><input name="time_edit" class="form-control" value="<?=$res_select_update[0]['post_create_datetime']?>"></p>
 					<p>Редактировать имя</p>
@@ -40,6 +41,16 @@ require_once '/var/www/html/blog/include/db.php';
                         <?=$res_select_update[0]['post_text']?>
 		        	    </textarea>
 					</p>
+					<p><?php if($res_select_img[0]['image']){ ?>
+                        <img src="../upload_img/<?=$res_select_img[0]['image'];?>" width="50" height="50" style=" margin-top:  8px; margin-right: 8px; ">
+                        <input name="img_del" type="submit" value="Удалить">                   
+                    </p>
+					<p><label for="file">Изменить изображение:</label></p>
+    				<p><input type="file" name="myfile_up" id="file"><br></p>
+    				<?php } else { ?> 
+                                 <p><label for="file">Добавить изображение:</label></p>
+    				             <p><input type="file" name="myfile_up" id="file"><br></p>
+    				<?php }?>
 					<p><input name="save" type="submit" class="btn btn-danger btn-block" value="Сохранить"></p>
 				</form>
 			</div>
