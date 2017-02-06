@@ -67,6 +67,8 @@ if($_GET['id']){
     $getid = $_GET['id'];
     $select_update = $link->query("SELECT post.*, group_concat(tag.tag_title) as tags FROM post LEFT JOIN post_to_tag USING (post_id) LEFT JOIN tag USING (tag_id) WHERE post_id='$getid' group by post.post_id");
     $res_select_update = $select_update ->fetchAll(PDO::FETCH_ASSOC);
+    $select_img = $link->query("SELECT * FROM images WHERE post_id = '$getid'");
+    $res_select_img = $select_img->fetchAll(PDO::FETCH_ASSOC);
 }
 
 
@@ -126,6 +128,16 @@ if($_GET['tag']) {
 //удаление поста
 if($_GET['del']) {
     $delete = $link->query("DELETE FROM post WHERE post_id=" . $_GET['del']);
+    $get_name = $link ->query("SELECT image FROM images WHERE post_id =" . $_GET['del']);
+    $get_name_res = $get_name -> fetch(PDO::FETCH_ASSOC);
+    $img_del_file = $get_name_res['image'];
+    var_dump($img_del_file);
+    $filename = "upload_img/$img_del_file";
+    if (file_exists($filename)) {
+        unlink("upload_img/$img_del_file");
+    }   
+    // var_dump($get_name_res);
+    $img_del = $link ->query("DELETE FROM images WHERE post_id =" . $_GET['del']);
     header("Location:index.php");
 }
 
@@ -160,3 +172,8 @@ if ($_POST['save_edit_comment']) {
         $insert_edit_comment = $link ->query("UPDATE comment SET comment_username = '{$_POST['comment_edit_name']}', comment_text = '{$_POST['comment_edit_text']}' WHERE comment_id=" . $_GET['comment_edit']);
     } else {$error_comment_edit= "Поля не могут быть пусты";}
 }
+
+
+
+
+

@@ -39,12 +39,12 @@ if ($_POST['img_del']) {
  	$get_name_res = $get_name -> fetch(PDO::FETCH_ASSOC);
  	$img_del_file = $get_name_res['image'];
  	$filename = "../upload_img/$img_del_file";
- 	if (file_exists($filename)) {
- 		unlink("../upload_img/$img_del_file");
- 	} 	
- 	// var_dump($get_name_res);
+ 		if (file_exists($filename)) {
+ 			unlink("../upload_img/$img_del_file");
+ 		} 	
+ 		// var_dump($get_name_res);
  	$img_del = $link ->query("DELETE FROM images WHERE post_id =" . $_GET['id']);
- }
+}
 
 
 //изменение картинки
@@ -80,7 +80,6 @@ if ($_POST['save']) {
 		}
 	}
 }
-
 
 if($_GET['del']) {
     $delete = $link->query("DELETE FROM post WHERE post_id=" . $_GET['del']);
