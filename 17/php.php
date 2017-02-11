@@ -19,3 +19,4 @@ class Marker extends writing_device{
 $blue_marker = new Marker();
 $blue_marker->color ="blue";
 $blue_marker->write();
+
