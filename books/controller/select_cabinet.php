@@ -2,7 +2,7 @@
 require_once 'select_with_rate.php';
 session_start();
 /**
-* 
+* class selected items for cabinet user
 */
 class SelectCabinet extends SelectWithRate
 {
@@ -15,19 +15,13 @@ class SelectCabinet extends SelectWithRate
 	}
 
 	public function SelectFromUser(){
-		return $selus = parent::selectAll("SELECT * FROM books WHERE user_id = '{$_SESSION['user_id']}'");
+		return $select_for_rate = parent::selectAll("SELECT * FROM books WHERE user_id = '{$_SESSION['user_id']}'");
 	}
 
-	public function AddRate(){
-		$selus = $this->SelectFromUser();
-		for ($i=0; $i < count($selus); $i++) {
-			$id = $selus[$i]['book_id'];
-			$rate1['rate'] = parent::RateCalc("WHERE book_id = $id");
-			$result = array_merge($selus[$i], $rate1);
-			$result_select[] = $result;
-		}
-		return $result_select;
+	public function AddRateCabinet(){
+		return $select = parent::AddRate($this->SelectFromUser());
 	}
+
 }
 $cab = new SelectCabinet();
-$result_select = $cab->AddRate();
+$result_select = $cab->AddRateCabinet();

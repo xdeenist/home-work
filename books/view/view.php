@@ -1,36 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Your Store</title>
-<meta name="description" content="My Store" />
-<meta property="og:image" content="images/dummy/pic_1.jpg" />
-
-<link rel="stylesheet" type="text/css" href="stylesheet/960.css" media="all" />
-<link rel="stylesheet" type="text/css" href="stylesheet/screen.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="stylesheet/color.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="stylesheet/prettyPhoto.css" media="all" />
-<!--[if lt IE 9]>
-<link rel="stylesheet" type="text/css" href="stylesheet/ie.css" media="screen" />
-<![endif]-->
-
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
-<script type="text/javascript" src="../js/jquery/jquery.prettyPhoto.js"></script>
-<script type="text/javascript" src="../js/shoppica.js"></script>
-
-
-</head>
-
-<body class="s_layout_fixed">
-
-<div id="wrapper"> 
   
   <!-- ********************** --> 
   <!--      H E A D E R       --> 
   <!-- ********************** -->
 <?php
-     require_once '/var/www/html/books/include/header.php';
+     require_once '../view/include/header.php';
 ?>
   <!-- end of header --> 
   
@@ -82,6 +55,8 @@
         </div>
         <div id="product_options">
           <h3>Описание книги: </h3>
+            <a href="../view/add.php?edit=<?=$result_select[$i]['book_id']?>" class="s_main_color" style="margin-left: 25px"><strong>Редактировать</strong></a>
+            <a href="?bookdel=<?=$result_select[$i]['book_id']?>" class="s_main_color left"><strong>Удалить</strong></a>
         </div>
       </div>
       <div class="clear"></div>
@@ -183,30 +158,22 @@
 
       
       <div id="bestseller_side" class="s_box clearfix">
-        <h2>Самые читаемые</h2>
-        <div class="s_item s_size_1 clearfix">
-        
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_4.jpg" width="38" height="38" alt="Sony VAIO" /></a>
-          <h3><a href="product.html">Sony VAIO</a></h3>
-          <p><a href="product.html"><span class="s_old"><span class="s_currency s_before">£</span>1,175.00</span> <span class="s_secondary_color"><span class="s_currency s_before">£</span>1,057.50</span></a></p>
-          <div class="s_rating_holder clearfix"><p class="s_rating s_rating_small s_rating_5 left"><span style="width: 100%;" class="s_percent"></span></p><span class="left">&nbsp;5/5</span></div>
-        </div>
-      </div>
-      <?php
-      require_once '/var/www/html/books/include/information.php';
-      ?>
+
+    <?php
+     require_once '../view/include/bestsellers.php';
+     require_once '../view/include/information.php';
+    ?>
 
     </div>
     
   </div>
   <!-- end of content -->
   
-  <!-- ********************** --> 
+   <!-- ********************** --> 
   <!--   S H O P   I N F O    --> 
   <!-- ********************** --> 
 <?php
-     require_once '/var/www/html/books/include/shopinfo.php';
+     require_once '../view/include/shopinfo.php';
 ?>
   <!-- end of shop info --> 
   
@@ -216,14 +183,13 @@
   <!--      F O O T E R       --> 
   <!-- ********************** --> 
 <?php
-     require_once '/var/www/html/books/include/footer.php';
+     require_once '../view/include/footer.php';
 ?>
   <!-- end of FOOTER --> 
   
 </div>
-
 <?php
-     require_once '/var/www/html/books/include/fb-root.php';
+     require_once '../view/include/fb-root.php';
 ?>
 
 </body>

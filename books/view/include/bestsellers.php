@@ -1,75 +1,76 @@
-      <div id="bestseller_side" class="s_box clearfix">
-        <h2>Bestsellers</h2>
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_10.jpg" width="38" height="38" alt="iPhone 3GS 8GB" /></a>
-          <h3><a href="product.html">iPhone 3GS 8GB</a></h3>
-          <p><a href="product.html"><span class="s_main_color"><span class="s_currency s_before">£</span>587.50</span></a></p>
-        </div>
-        
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_9.jpg" width="38" height="38" alt="Hubo Boss Emotion" /></a>
-          <h3><a href="product.html">Hubo Boss Emotion</a></h3>
-          <p><a href="product.html"><span class="s_main_color"><span class="s_currency s_before">£</span>2,350.00</span></a></p>
-        </div>
-        
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_8.jpg" width="38" height="38" alt="Panasonic Lumix" /></a>
-          <h3><a href="product.html">Panasonic Lumix</a></h3>
-          <p><a href="product.html"><span class="s_main_color"><span class="s_currency s_before">£</span>94.00</span></a></p>
-        </div>
-        
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_7.jpg" width="38" height="38" alt="Casio Exilim Zoom" /></a>
-          <h3><a href="product.html">Casio Exilim Zoom</a></h3>
-          <p><a href="product.html"><span class="s_main_color"><span class="s_currency s_before">£</span>117.50</span></a></p>
-        </div>
-  
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_6.jpg" width="38" height="38" alt="Christian Dior Amber Woman" /></a>
-          <h3><a href="product.html">Christian Dior Amber Woman</a></h3>
-          <p><a href="product.html"><span class="s_main_color"><span class="s_currency s_before">£</span>328.99</span></a></p>
-        </div>
-  
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_5.jpg" width="38" height="38" alt="iPod Classic" /></a>
-          <h3><a href="product.html">iPod Classic</a></h3>
-          <p><a href="product.html"><span class="s_main_color"><span class="s_currency s_before">£</span>117.50</span></a></p>
-        </div>
-        
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_4.jpg" width="38" height="38" alt="Sony VAIO" /></a>
-          <h3><a href="product.html">Sony VAIO</a></h3>
-          <p><a href="product.html"><span class="s_old"><span class="s_currency s_before">£</span>1,175.00</span> <span class="s_secondary_color"><span class="s_currency s_before">£</span>1,057.50</span></a></p>
-          <div class="s_rating_holder clearfix"><p class="s_rating s_rating_small s_rating_5 left"><span style="width: 100%;" class="s_percent"></span></p><span class="left">&nbsp;5/5</span></div>
-        </div>
-  
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_3.jpg" width="38" height="38" alt="Canon Digital Ixus 200 IS" /></a>
-          <h3><a href="product.html">Canon Digital Ixus 200 IS</a></h3>
-          <p><a href="product.html"><span class="s_main_color"><span class="s_currency s_before">£</span>117.50</span></a></p>
-        </div>
-    
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_2.jpg" width="38" height="38" alt="Hugo Boss Chrome" /></a>
-          <h3><a href="product.html">Hugo Boss Chrome</a></h3>
-          <p><a href="product.html"><span class="s_main_color"><span class="s_currency s_before">£</span>94.00</span></a></p>
-        </div>
-    
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_1.jpg" width="38" height="38" alt="Hennesy Paradis Extra" /></a>
-          <h3><a href="product.html">Hennesy Paradis Extra</a></h3>
-          <p><a href="product.html"><span class="s_old"><span class="s_currency s_before">£</span>1,175.00</span> <span class="s_secondary_color"><span class="s_currency s_before">£</span>1,057.50</span></a></p>
-        </div>
-    
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_10.jpg" width="38" height="38" alt="Elizabeth Arden Pretty" /></a>
-          <h3><a href="product.html">Elizabeth Arden Pretty</a></h3>
-          <p><a href="product.html"><span class="s_main_color"><span class="s_currency s_before">£</span>94.00</span></a></p>
-        </div>
-    
-        <div class="s_item s_size_1 clearfix">
-          <a class="s_thumb" href="product.html"><img src="images/dummy/pic_9.jpg" width="38" height="38" alt="Sony Cyber Shot S1000" /></a>
-          <h3><a href="product.html">Sony Cyber Shot S1000</a></h3>
-          <p><a href="product.html"><span class="s_main_color"><span class="s_currency s_before">£</span>117.50</span></a></p>
-        </div>
-      </div>
+<?php
+require_once '../controller/select_bestsellers.php';
+// var_dump($result_bestsel );
+
+?>
+<div id="bestseller_side" class="s_box clearfix">
+  <h2>Лучшие</h2>
+  <?php for ($i=0; $i < count($result_bestsel); $i++) {  ?>
+  <div class="s_item s_size_1 clearfix">
+    <a class="s_thumb" ><img src="../files/img/<?=$result_bestsel[$i]['book_img']?>" width="38" height="38" alt="<?=$result_bestsel[$i]['book_name']?>" /></a>
+    <?php if (strlen($result_bestsel[$i]['book_name']) > 15) { $result_bestsel[$i]['book_name'] = substr($result_bestsel[$i]['book_name'], 0, 15) . "..."; } ?>
+    <h3><a href="../view/view.php?id=<?=$result_bestsel[$i]['book_id']?>"><?=$result_bestsel[$i]['book_name']?></a></h3>
+    <?php if (strlen($result_bestsel[$i]['author']) > 8) { $result_bestsel[$i]['author'] = substr($result_bestsel[$i]['author'], 0, 8) . "..."; } ?>
+    <p class="s_model">Author:: <?=$result_bestsel[$i]['author']?></p>
+    <?php switch ($result_bestsel[$i]['rate']) {
+        case 1:
+          $r = 20;
+          break;
+        case 2:
+          $r = 40;
+          break;
+        case 3:
+          $r = 60;
+          break;
+        case 4:
+          $r = 80;
+          break;
+        case 5:
+          $r = 100;
+          break;           
+        default:
+          $r = 0;
+          break;
+    } ?>
+    <div class="s_rating_holder clearfix"><p class="s_rating s_rating_small s_rating_5 left"><span style="width: <?=$r?>%;" class="s_percent"></span></p></div>
+  </div>
+  <?php } ?>
+</div>
+
+
+<div id="bestseller_side" class="s_box clearfix">
+  <h2>Читаемые</h2>
+  <?php for ($i=0; $i < count($result_bestsel); $i++) {  ?>
+  <div class="s_item s_size_1 clearfix">
+    <a class="s_thumb" href=""><img src="../files/img/<?=$result_bestsel[$i]['book_img']?>" width="38" height="38" alt="<?=$result_bestsel[$i]['book_name']?>" /></a>
+    <?php if (strlen($result_bestsel[$i]['book_name']) > 15) { $result_bestsel[$i]['book_name'] = substr($result_bestsel[$i]['book_name'], 0, 15) . "..."; } ?>
+    <h3><a href=""><?=$result_bestsel[$i]['book_name']?></a></h3>
+    <?php if (strlen($result_bestsel[$i]['author']) > 8) { $result_bestsel[$i]['author'] = substr($result_bestsel[$i]['author'], 0, 8) . "..."; } ?>
+    <p class="s_model">Author:: <?=$result_bestsel[$i]['author']?></p>
+    <?php switch ($result_bestsel[$i]['rate']) {
+        case 1:
+          $r = 20;
+          break;
+        case 2:
+          $r = 40;
+          break;
+        case 3:
+          $r = 60;
+          break;
+        case 4:
+          $r = 80;
+          break;
+        case 5:
+          $r = 100;
+          break;           
+        default:
+          $r = 0;
+          break;
+    } ?>
+    <div class="s_rating_holder clearfix"><p class="s_rating s_rating_small s_rating_5 left"><span style="width: <?=$r?>%;" class="s_percent"></span></p></div>
+  </div>
+  <?php } ?>
+</div>
+
+
+

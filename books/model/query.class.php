@@ -8,7 +8,7 @@ abstract class Query
         $update = DbConnect::getConnect()->prepare($query);
         $update->execute($param);
     }
-    public function delete($query,$param=[]){
+    public function DeleteItem($query,$param=[]){
         $delete = DbConnect::getConnect()->prepare($query);
         $delete->execute($param);
     }
