@@ -21,7 +21,10 @@
  		for ($i=0; $i < count($select_rate); $i++) { 
  			$arr[] = $select_rate[$i]['rate'];
  		}
- 		return $rate = (int) (ceil(array_sum($arr) / count($arr)));
+ 		// var_dump($arr);
+ 		if ($arr) {
+ 			return $rate = (int) (ceil(array_sum($arr) / count($arr)));
+ 		}
  	}
 
  	public function AddRate($select_for_rate){

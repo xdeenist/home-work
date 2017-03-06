@@ -18,7 +18,7 @@ class AddBook extends Add
 	}
 
 	public function GetGenreId($genre_title){
-		return $sel_gen = parent::selectAll("SELECT genre_id FROM genre_list WHERE genre_text = '$genre_title'");
+		return $sel_gen = parent::selectAll("SELECT genre_id FROM genre_list WHERE genre_add_title = '$genre_title'");
 	}
 
 	public function AddDbFileImg($uploaddir_img){
@@ -78,8 +78,8 @@ class AddBook extends Add
 			    	$upload_name_book = $this->AddDbFileBook($uploaddir);
 			    	if ($upload_name_book) {
 			    		$select_genre_id = $this->GetGenreId($_POST['genre_add']);
-			    		$arr_exec = array(":book_n" => $_POST['book_name'], ":book_ser" => $_POST['serial'], ":auth" => $_POST['author'], ":disc" => $_POST['discr'], ":edition" => $_POST['edition_add'], ":year" => $_POST['year_add'], ":gen_add" => $select_genre_id[0]['genre_id'], ":create_datetime" => $datetime, ":i_file" => $upload_name_img, ":b_file" => $upload_name_book, ":us_id" => $_SESSION['user_id'], ":genre_title" => $_POST['genre_add']);
-			   	    	$ins = parent::insert('INSERT INTO books SET book_name = :book_n, book_serial = :book_ser, author = :auth, discr = :disc, edition_add = :edition, year_add = :year, genre_add_id = :gen_add, book_create_datetime = :create_datetime, book_img = :i_file, book_file = :b_file, user_id = :us_id, genre_add_title = :genre_title', $arr_exec);
+			    		$arr_exec = array(":book_n" => $_POST['book_name'], ":book_ser" => $_POST['serial'], ":auth" => $_POST['author'], ":disc" => $_POST['discr'], ":edition" => $_POST['edition_add'], ":year" => $_POST['year_add'], ":gen_add" => $select_genre_id[0]['genre_id'], ":create_datetime" => $datetime, ":i_file" => $upload_name_img, ":b_file" => $upload_name_book, ":us_id" => $_SESSION['user_id']);
+			   	    	$ins = parent::insert('INSERT INTO books SET book_name = :book_n, book_serial = :book_ser, author = :auth, discr = :disc, edition_add = :edition, year_add = :year, genre_add_id = :gen_add, book_create_datetime = :create_datetime, book_img = :i_file, book_file = :b_file, user_id = :us_id', $arr_exec);
 			   	    	if (isset($_POST['rate_add'])) {
 			   	    		$last = parent::LastInsert();
 			   	    		$ins_rate = array(":rate" => $_POST['rate_add'], ":book_id" => $last, ":user_id" => $_SESSION['user_id']);

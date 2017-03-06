@@ -44,11 +44,15 @@ class SelectList extends SelectWithRate
 			$get = $_GET['edit'];
 			return $where = "WHERE book_id = '$get'";
 		}
+		if ($_GET['id']) {
+			$get = $_GET['id'];
+			return $where = "WHERE book_id = '$get'";
+		}
 	}
 
 	public function SelectListGet(){
 		$where = $this->Where();
-		$SelectListGet = parent::selectAll("SELECT * FROM books $where");
+		$SelectListGet = parent::selectAll("SELECT books.*, genre_list.genre_add_title FROM books LEFT JOIN genre_list ON (genre_list.genre_id = books.genre_add_id)  $where");
 		return $select_res_with_rate = parent::AddRate($SelectListGet);
 	}
 

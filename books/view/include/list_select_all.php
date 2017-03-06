@@ -8,9 +8,9 @@
 <?php for ($i=0; $i < count($select_res_rate) ; $i++) { 
 ?>
 <div class="s_item clearfix">
-  <div class="grid_3 alpha"> <a class="s_thumb" href=""><img src="../files/img/<?=$select_res_rate[$i]['book_img']?>" title="<?=$select_res_rate[$i]['book_name']?>" /></a> </div>
+  <div class="grid_3 alpha"> <a class="s_thumb" href="../view/view.php?id=<?=$select_res_rate[$i]['book_id']?>"><img src="../files/img/<?=$select_res_rate[$i]['book_img']?>" title="<?=$select_res_rate[$i]['book_name']?>" /></a> </div>
   <div class="grid_9 omega">
-    <h3><a href=""><?=$select_res_rate[$i]['book_name']?></a></h3>
+    <h3><a href="../view/view.php?id=<?=$select_res_rate[$i]['book_id']?>"><?=$select_res_rate[$i]['book_name']?></a></h3>
     <p class="s_model">Date Added:: <?=$select_res_rate[$i]['book_create_datetime']?></p>
     <p class="s_model">Author:: <?=$select_res_rate[$i]['author']?></p>
     <p class="s_model">Genre:: <?=$select_res_rate[$i]['genre_add_title']?></p>

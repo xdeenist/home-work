@@ -7,13 +7,13 @@ require_once '../controller/genre.php';
   <select size="8" style="width: 350px;" name="genre_add">
         <?php for ($i=0; $i < count($result); $i++) { 
                   if (is_null($result[$i]['genre_parent_id'])) { ?>
-                      <optgroup label="<?=$result[$i]['genre_text']?>">
+                      <optgroup label="<?=$result[$i]['genre_add_title']?>">
                    <?php } ?>
             <?php for ($k=0; $k < count($result); $k++) { 
                       if ($result[$k]['genre_parent_id'] == $result[$i]['genre_id'] ) { 
-                          if ($result[$k]['genre_text'] == $defaultgenre[0]['genre_add_title']){ ?>
-                             <option selected><?=$result[$k]['genre_text']?></option>
-                          <?php } else {?> <option><?=$result[$k]['genre_text']?></option>  <?php } ?>                      
+                          if ($result[$k]['genre_add_title'] == $defaultgenre[0]['genre_add_title']){ ?>
+                             <option selected><?=$result[$k]['genre_add_title']?></option>
+                          <?php } else {?> <option><?=$result[$k]['genre_add_title']?></option>  <?php } ?>                      
                 <?php }
                     } ?>
         <?php } ?>

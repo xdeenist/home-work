@@ -1,5 +1,6 @@
  <?php
      require_once '../controller/select_cabinet.php';
+     require_once '../controller/delete.php';
 ?>
   <!-- ********************** --> 
   <!--      H E A D E R       --> 

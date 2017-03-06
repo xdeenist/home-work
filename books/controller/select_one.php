@@ -9,6 +9,9 @@ class SelectOneBook extends SelectList
 	
 	function __construct()
 	{
+		if (!$_SESSION['login']) {
+			header("Location: ../index.php");
+		}
 	}
 
 	public function SelectOne(){

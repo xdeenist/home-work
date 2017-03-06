@@ -55,6 +55,7 @@
         <div class="s_row_2 clearfix">
           <label><strong>Выберите вашу оценку</strong></label>
           <select name="rate_add"  size="1" style="width: 50px;">
+            <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>

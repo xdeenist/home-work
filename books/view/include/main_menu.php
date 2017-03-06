@@ -9,13 +9,13 @@ require_once '/var/www/html/books/controller/genre.php';
     <ul class="s_list_1 clearfix">
       <?php for ($i=0; $i < count($result); $i++) { 
                 if (is_null($result[$i]['genre_parent_id'])) { ?>
-                    <li><a><?=$result[$i]['genre_text']?></a>
+                    <li><a><?=$result[$i]['genre_add_title']?></a>
             <?php } ?>
                     
                     <ul class="s_list_1 clearfix">
             <?php for ($k=0; $k < count($result); $k++) { 
                   if ($result[$k]['genre_parent_id'] == $result[$i]['genre_id'] ) { ?>
-                    <li><a href="../view/list.php?genre=<?=$result[$k]['genre_id']?>"><?=$result[$k]['genre_text']?></a></li>
+                    <li><a href="../view/list.php?genre=<?=$result[$k]['genre_id']?>"><?=$result[$k]['genre_add_title']?></a></li>
                     
             <?php  }
                 } ?>

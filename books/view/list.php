@@ -46,8 +46,8 @@
         </div>
         <div id="view_mode" class="s_nav">
           <ul class="clearfix">
-            <li id="view_grid"><a href="listing_4.html"><span class="s_icon"></span>Grid</a></li>
-            <li id="view_list" class="s_selected"><a href="listing_3.html"><span class="s_icon"></span>List</a></li>
+            <li id="view_grid"><a href=""><span class="s_icon"></span>Grid</a></li>
+            <li id="view_list" class="s_selected"><a href=""><span class="s_icon"></span>List</a></li>
           </ul>
         </div>
       </div>

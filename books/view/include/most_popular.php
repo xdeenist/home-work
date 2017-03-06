@@ -2,7 +2,8 @@
 	require_once '../controller/select_most_popular.php'; 
 	// var_dump($resule_most_popular);
 ?>
-<?php for ($i=0; $i < count($resule_most_popular); $i++) { ?>
+<?php for ($i=0; $i < count($resule_most_popular); $i++) { 
+      if ($resule_most_popular[$i]['rate'] > 0) {   ?>
 	      <div class="s_item grid_2"> <a class="s_thumb"><img src="../files/img/<?=$resule_most_popular[$i]['book_img']?>" title="<?=$resule_most_popular[$i]['book_name']?>" alt="<?=$resule_most_popular[$i]['book_name']?>" /></a>
           <?php if (strlen($resule_most_popular[$i]['book_name']) > 20) { $resule_most_popular[$i]['book_name'] = substr($resule_most_popular[$i]['book_name'], 0, 20) . "..."; } ?>
           <h3><a href="../view/view.php?id=<?=$resule_most_popular[$i]['book_id']?>"><?=$resule_most_popular[$i]['book_name']?></a></h3>
@@ -39,6 +40,7 @@
           </ul>
 
         </div>
-<?php } ?>
+<?php } 
+}?>
 
 

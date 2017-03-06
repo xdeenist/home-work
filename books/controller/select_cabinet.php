@@ -15,7 +15,7 @@ class SelectCabinet extends SelectWithRate
 	}
 
 	public function SelectFromUser(){
-		return $select_for_rate = parent::selectAll("SELECT * FROM books WHERE user_id = '{$_SESSION['user_id']}'");
+		return $select_for_rate = parent::selectAll("SELECT books.*, genre_list.genre_add_title FROM books LEFT JOIN genre_list ON (genre_list.genre_id = books.genre_add_id) WHERE user_id = '{$_SESSION['user_id']}'");
 	}
 
 	public function AddRateCabinet(){

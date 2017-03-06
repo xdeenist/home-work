@@ -15,7 +15,7 @@ class DefaultGenre extends Genre
 	public function GetDefaultGenre(){
 		if ($_GET['edit']) {
 			$id = $_GET['edit'];
-			return $defaultgenre = parent::selectAll("SELECT genre_add_title FROM books WHERE book_id = '$id'");
+			return $defaultgenre = parent::selectAll("SELECT genre_add_title FROM books LEFT JOIN genre_list ON (genre_list.genre_id = books.genre_add_id) WHERE book_id = '$id'");
 		}
 	}
 }
