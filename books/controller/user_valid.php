@@ -28,16 +28,20 @@ class UserValid extends User
 
 	public function UserIns(){
 		if (isset($_POST['cont_reg'])) {
-			if (!$this->UserSelect()) {				
-			    if ($_POST['pwd'] == $_POST['repwd']) {
-				    $username = $_POST['name_user'];
-				    $pwd = $this->HashPwd();
-				    $user_stat = 'user';
-				    $mail = $_POST['e_mail'];
-				    $r = array(":name" => $username, ":pass" => $pwd, ":status" => $user_stat, ":email" => $mail);
-                	parent::insert('INSERT INTO users SET user_login = :name, user_pass = :pass, user_status = :status, email = :email', $r );
-                	return $true_l = "Теперь вы можете зайти на сайт";
-			    } else return $error_l = "Пароли не совпадают";
+			if (!$this->UserSelect()) {
+				if (strlen($_POST['pwd']) >= 6) {
+					if (preg_match("/^[a-zA-Z0-9]+$/", $_POST['pwd'])) {						
+			    		if ($_POST['pwd'] == $_POST['repwd']) {
+				    		$username = $_POST['name_user'];
+				    		$pwd = $this->HashPwd();
+				    		$user_stat = 'user';
+				    		$mail = $_POST['e_mail'];
+				    		$r = array(":name" => $username, ":pass" => $pwd, ":status" => $user_stat, ":email" => $mail);
+                			parent::insert('INSERT INTO users SET user_login = :name, user_pass = :pass, user_status = :status, email = :email', $r );
+                			return $true_l = "Теперь вы можете зайти на сайт";
+			    		} else return $error_l = "Пароли не совпадают";
+			    	} else return $error_l = "Пароль должен содержать только <br /> цифры и латинские буквы";
+			    } else return $error_l = "Пароль должен быть не менее 6 символов";
 			} else return $error_l = "Вы уже зарегистрированы";
 		}
 	}

@@ -228,7 +228,7 @@ require_once '../controller/search.php';
                 ?>
             </div>
           </li>
-<!--           <li><a href="">Топ пользователей</a>
+          <li><a href="">Топ пользователей</a>
             <div class="s_submenu">
               <h3>Inside Shoes</h3>
               <ul class="s_list_1 clearfix">
@@ -250,7 +250,7 @@ require_once '../controller/search.php';
                 <li><a href="">Sony</a></li>
               </ul>
             </div>
-          </li> -->
+          </li>
         </ul>
       </div>     
     </div>
