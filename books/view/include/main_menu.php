@@ -1,5 +1,5 @@
 <?php
-require_once '/var/www/html/books/controller/genre.php';
+require_once '../controller/genre.php';
 ?>
 
 <li> <a>Жанры</a>
