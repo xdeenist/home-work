@@ -18,7 +18,9 @@
           &gt;
           <a href="">Все книги</a>
         </div>
-        <h1>Все книги</h1>
+          <?php if ($_GET['search']) { ?>
+            <h1>Результаты поиска</h1>
+          <?php } else {?><h1>Все книги</h1><?php } ?>          
       </div>
     </div>
   </div>
@@ -46,7 +48,7 @@
         </div>
         <div id="view_mode" class="s_nav">
           <ul class="clearfix">
-            <li id="view_grid"><a href=""><span class="s_icon"></span>Grid</a></li>
+            <!-- <li id="view_grid"><a href=""><span class="s_icon"></span>Grid</a></li> -->
             <li id="view_list" class="s_selected"><a href=""><span class="s_icon"></span>List</a></li>
           </ul>
         </div>
@@ -59,6 +61,7 @@
         <div class="clear"></div>
         <?php
           require_once '../view/include/list_select_all.php';
+          require_once '../view/include/search_result.php';
         ?>
 
 

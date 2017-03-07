@@ -48,6 +48,18 @@ class SelectList extends SelectWithRate
 			$get = $_GET['id'];
 			return $where = "WHERE book_id = '$get'";
 		}
+		if ($_GET['author']) {
+			$get = $_GET['author'];
+			return $where = "WHERE author LIKE '$get'";
+		}
+		if ($_GET['serial']) {
+			$get = $_GET['serial'];
+			return $where = "WHERE book_serial LIKE '$get'";
+		}
+		if ($_GET['edition']) {
+			$get = $_GET['edition'];
+			return $where = "WHERE edition_add LIKE '$get'";
+		}
 	}
 
 	public function SelectListGet(){

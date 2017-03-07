@@ -1,5 +1,6 @@
 <?php session_start(); 
-require_once '../controller/user_exit.php'
+require_once '../controller/user_exit.php';
+require_once '../controller/search.php';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en" xml:lang="en" xmlns:fb="http://www.facebook.com/2008/fbml">
@@ -58,8 +59,10 @@ require_once '../controller/user_exit.php'
       <div id="site_search">
       	<a id="show_search" href="javascript:;" title="Search:"></a>
         <div id="search_bar" class="clearfix">
-          <input type="text" id="filter_keyword" />
-          <a class="s_button_1 s_secondary_color_bgr"><span class="s_text">Go</span></a> <a class="s_advanced s_main_color" href="">Advanced Search</a>
+        <form method="post">
+          <input type="text" id="filter_keyword" name="search"/>
+          <input type="submit" name="search_submit" value="Поиск" class="s_button_1 s_secondary_color_bgr" /><br />
+        </form>
         </div>
       </div>
       
