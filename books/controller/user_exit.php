@@ -1,7 +1,7 @@
 <?php 
 
 /**
-*  User exot class
+*  User exit class
 */
 class UserEx
 {

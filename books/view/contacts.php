@@ -1,4 +1,6 @@
-
+<?php 
+  require_once '../controller/contacts.php';
+?>
 
   <!-- ********************** --> 
   <!--      H E A D E R       --> 
@@ -26,15 +28,7 @@ $(document).ready(function () {
           $(element).parent("div").removeClass("s_error_row");
       }
   });
-  $("#contact_form").validate({
-    rules: {
-      enquiry: {
-          required: true,
-          minlength: 10
-      }
-    }
-  });
-  
+  $("#contact_form").validate();  
 });
 </script>  
 
@@ -73,29 +67,31 @@ $(document).ready(function () {
 
       <br />
       <span class="clear border_ddd"></span>
-      <br />
-      
-      
+      <br />      
+      <p style="color: green; font-weight: bolder"><?=$emailSent;?> 
+      <?php if ($emailSent) { ?>
+        <a style="color: blue; font-weight: bolder" href="../index.php">→ назад на главную</a>
+      <?php } ?>
+      </p>
       <h2><span class="s_secondary_color">Отправить</span> сообщение</h2>
 
-      <form id="contact_form" action="#" method="post" enctype="multipart/form-data">
-      	<div id="contact_form_icon"></div>
-        
+      <form id="contact_form" action="" method="post" enctype="multipart/form-data">
+      	<div id="contact_form_icon"></div>        
         <div class="s_row_3 clearfix">
           <label><strong>Ваше имя:</strong> *</label>
-          <input type="text" size="40" class="required" title="Name must be between 3 and 32 characters!" />
+          <input type="text" size="35" class="required" name="name_contact" placeholder="Введите имя"/>
         </div>
         <div class="s_row_3 clearfix">
           <label><strong>Ваш E-Mail:</strong> *</label>
-          <input type="text" size="40" class="required email" title="E-Mail Address does not appear to be valid!" />
+          <input type="text" size="35" class="required email" name="e_mail_contact" placeholder="Введите E-Mail"/>
         </div>
         <div class="s_row_3 clearfix">
           <label><strong>Ваше сообщение:</strong> *</label>
           <div class="s_full">
-            <textarea id="enquiry" style="width: 98%;" rows="10" class="required" title="Enquiry must be between 10 and 3000 characters!"></textarea>
+            <textarea id="enquiry" style="width: 98%;" rows="10" class="required" name="text_contact" title="Enquiry must be between 10 and 3000 characters!"></textarea>
           </div>
         </div>
-        <a class="s_button_1 s_main_color_bgr" onclick="$('#contact_form').submit();"><span class="s_text">Отправить</span></a>
+        <button class="s_button_1 s_main_color_bgr" type="submit" name="cont_contact"><span class="s_text">Отправить</span></button>
       </form>
 
     </div>

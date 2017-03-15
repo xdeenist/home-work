@@ -1,5 +1,5 @@
  <?php
-     require_once '../controller/select_cabinet.php';
+     require_once '../controller/admin.php';
      require_once '../controller/delete.php';
 ?>
   <!-- ********************** --> 
@@ -21,7 +21,7 @@
           <a href="index.html">Главная</a>
            &gt; <a href="cart.html">Кабинет</a>
         </div>
-        <h1>Кабинет</h1>
+        <h1>Админка</h1>
       </div>
     </div>
   </div>
@@ -32,7 +32,7 @@
   <!--      C O N T E N T     --> 
   <!-- ********************** -->       
         <?php
-             require_once '../view/include/cabinet_select.php';
+             require_once '../view/include/cabinet_admin.php';
         ?>
       
 

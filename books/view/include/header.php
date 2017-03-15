@@ -18,16 +18,6 @@ require_once '../controller/search.php';
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 <script type="text/javascript" src="../js/shoppica.js"></script>
-<!-- <script type="text/javascript" src="../js/jquery/jquery-1.2.6.min.js"></script>
-<script type="text/javascript" src="../js/jquery/jquery.rater.js"></script>
-<script type="text/javascript">
-      $(function() {
-        $('#testRater').rater({ postHref: 'http://jvance.com/TestRater.aspx' });
-      });
-      $(function() {
-        $('#errorRater').rater({ postHref: 'http://jvance.com/TestRater.aspx?error=true' });
-      });
-</script> -->
 
 
 </head>
@@ -230,25 +220,9 @@ require_once '../controller/search.php';
           </li>
           <li><a href="">Топ пользователей</a>
             <div class="s_submenu">
-              <h3>Inside Shoes</h3>
-              <ul class="s_list_1 clearfix">
-                <li><a href="">Women's Shoes</a></li>
-                <li><a href="">Men's Shoes</a></li>
-                <li><a href="">Kids' Shoes</a></li>
-                <li><a href="">Sportswear</a></li>
-              </ul>
-              <span class="clear border_eee"></span>
-              <h3>Shoes Brands</h3>
-              <ul class="s_list_1 clearfix">
-                <li><a href="">Adidas</a></li>
-                <li><a href="">Apple</a></li>
-                <li><a href="">Armani</a></li>
-                <li><a href="">Balenciaga</a></li>
-                <li><a href="">Christian Dior</a></li>
-                <li><a href="">Nike</a></li>
-                <li><a href="">Samsung</a></li>
-                <li><a href="">Sony</a></li>
-              </ul>
+                <?php 
+                require_once 'header_top_users.php'
+                ?>
             </div>
           </li>
         </ul>
