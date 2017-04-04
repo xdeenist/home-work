@@ -1,7 +1,7 @@
 <?php 
     require_once '../controller/search.php';
 
-if ($_GET['search']) { ?>
+if (isset($_GET['search'])) { ?>
   <div class="s_item clearfix">
     <div class="grid_9 omega">
     <?php if (!empty($res_sel_book) && !empty($res_sel_author) && !empty($res_sel_serial) && !empty($res_sel_edition)) { ?>

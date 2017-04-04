@@ -1,5 +1,6 @@
 <?php 
   require_once '../controller/contacts.php';
+
 ?>
 
   <!-- ********************** --> 
@@ -42,9 +43,15 @@ $(document).ready(function () {
         <div id="breadcrumbs" class="grid_12">
           <a href="">Главная</a>
           &gt;
+          <?php if (isset($_SESSION['userstatus']) &&  $_SESSION['userstatus'] != "admin") { ?>
           <a href="">Связаться с нами</a>
         </div>
         <h1>Связаться с нами</h1>
+        <?php } else { ?>
+        <a href="">Обратная связь</a>
+        </div>
+        <h1>Ответы из формы</h1>
+        <?php } ?>
       </div>
     </div>
   </div>
@@ -59,6 +66,8 @@ $(document).ready(function () {
 
     
     <div id="contacts" class="s_info_page grid_12">
+
+    <?php if (isset($_SESSION) || $_SESSION['userstatus'] != "admin") { ?>
      	
       <h2><span class="s_secondary_color">Мы находимся</span> рядом</h2>
       
@@ -88,11 +97,51 @@ $(document).ready(function () {
         <div class="s_row_3 clearfix">
           <label><strong>Ваше сообщение:</strong> *</label>
           <div class="s_full">
-            <textarea id="enquiry" style="width: 98%;" rows="10" class="required" name="text_contact" title="Enquiry must be between 10 and 3000 characters!"></textarea>
+            <textarea id="enquiry" style="width: 98%;" rows="10" class="required" name="text_contact" maxlength="350" title="Enquiry must be more 10 characters!"></textarea>
           </div>
         </div>
         <button class="s_button_1 s_main_color_bgr" type="submit" name="cont_contact"><span class="s_text">Отправить</span></button>
       </form>
+
+    <?php } else { ?>
+      <?php if (isset($_GET['r'])) { ?>
+        <form id="contact_form" action="" method="post">
+          <div class="s_row_3 clearfix">
+            <p>Ответить пользователю:</p>
+            <input type="text" name="ans" class="required" value="<?=$_GET['r']?>">
+          </div>
+          <div class="s_row_3 clearfix">
+            <textarea id="enquiry" style="width: 98%;" rows="10" class="required" name="ans_text_contact" maxlength="350"></textarea>
+          </div>
+          <button class="s_button_1 s_main_color_bgr" type="submit" name="ans_contact"><span class="s_text">Отправить</span></button>
+        </form>
+      <?php } ?>
+      <p style="color: green; font-weight: bolder"><?=$emailSent;?>
+      <?php if (!empty($sel_unreed)) {  ?>
+        <h4><a href="contacts.php?read=read">Прочитанные</a> :: <a href="contacts.php">Непрочитанные</a></h4> 
+       <?php } ?>
+      <?php if (!empty($sel_unreed)) {  ?>
+        <table border="1" width="690">
+          <caption><strong><?php if (isset($_GET['read'])) { ?>Прочитанные <?php } else { ?> Непрочитанные <?php } ?>сообщения:</strong></caption>
+            <tr>
+              <th>User Name</th>
+              <th>E-mail</th>
+              <th>Text</th>
+              <th>Time</th>
+              <th>Control</th>
+            </tr>
+          <?php for ($i=0; $i < count($sel_unreed); $i++) { ?>          
+            <tr>
+              <th><?=$sel_unreed[$i]['name']?></th>
+              <th><?=$sel_unreed[$i]['mail']?></th>
+              <th><a href="contacts.php?r=<?=$sel_unreed[$i]['name']?>&em=<?=$sel_unreed[$i]['mail']?>"><?=$sel_unreed[$i]['message']?></a></th>
+              <th><?=$sel_unreed[$i]['messageTime']?></th>
+              <th><a href="contacts.php?reed=<?=$sel_unreed[$i]['contact_id']?>">Проч </a>::<a href="contacts.php?del=<?=$sel_unreed[$i]['contact_id']?>"> Del</a></th>
+            </tr>
+            <?php } ?>
+        </table>
+      <?php } ?>
+    <?php } ?>
 
     </div>
     

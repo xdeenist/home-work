@@ -1,6 +1,6 @@
 <?php 
 require_once '../model/select.class.php';
-session_start();
+// session_start();
 /**
 * 
 */
@@ -12,7 +12,7 @@ class Comments extends Select
 	}
 
 	public function EditCommSelect(){
-		if (is_numeric($_GET['comment_edit'])) {
+		if (is_numeric(isset($_GET['comment_edit']))) {
 			return $select_com_edit = parent::selectAll("SELECT comment_text FROM comment WHERE comment_id =" . $_GET['comment_edit']);
 		}
 	}
@@ -51,7 +51,7 @@ class Comments extends Select
 	}
 
 	public function DelComment(){
-		if ($_GET['comment_del']) {
+		if (isset($_GET['comment_del'])) {
 			$user = parent::selectAll("SELECT comment_username FROM comment WHERE comment_id=" . $_GET['comment_del']);
 			if ($user[0]['comment_username'] == $_SESSION['user'] || $_SESSION['user'] == "admin") {
 				$DelComment = parent::DeleteItem("DELETE FROM comment WHERE comment_id=" . $_GET['comment_del']);

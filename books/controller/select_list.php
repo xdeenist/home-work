@@ -12,51 +12,51 @@ class SelectList extends SelectWithRate
 	}
 
 	public function Where(){
-		if ($_GET['list'] && $_GET['sort'] == "new") {
+		if (isset($_GET['list']) && isset($_GET['sort']) && $_GET['sort'] == "new") {
 			$get = $_GET['list'];
 			return $where = "";
-		} elseif ($_GET['list']) {
+		} elseif (isset($_GET['list'])) {
 			$get = $_GET['list'];
 			return $where = "ORDER BY book_create_datetime DESC";
 		}
-		if ($_GET['genre'] && $_GET['sort'] == "new") {
+		if (isset($_GET['genre']) && isset($_GET['sort']) && $_GET['sort'] == "new") {
 			$get = $_GET['genre'];
 			return $where = "WHERE genre_add_id = $get";
-		} elseif ($_GET['genre']) {
+		} elseif (isset($_GET['genre'])) {
 			$get = $_GET['genre'];
 			return $where = "WHERE genre_add_id = $get ORDER BY book_create_datetime DESC";
 		}
-		if ($_GET['albt'] && $_GET['sort'] == "new") {
+		if (isset($_GET['albt']) && isset($_GET['sort']) && $_GET['sort'] == "new") {
 			$get = $_GET['albt'] . "%";
 			return $where = "WHERE author LIKE '$get'";
-		} elseif ($_GET['albt']) {
+		} elseif (isset($_GET['albt'])) {
 			$get = $_GET['albt'] . "%";
 			return $where = "WHERE author LIKE '$get' ORDER BY book_create_datetime DESC";
 		}
-		if ($_GET['srl'] && $_GET['sort'] == "new") {
+		if (isset($_GET['srl']) && isset($_GET['sort']) &&  $_GET['sort'] == "new") {
 			$get = $_GET['srl'] . "%";
 			return $where = "WHERE book_serial LIKE '$get'";
-		} elseif ($_GET['srl']) {
+		} elseif (isset($_GET['srl'])) {
 			$get = $_GET['srl'] . "%";
 			return $where = "WHERE book_serial LIKE '$get' ORDER BY book_create_datetime DESC";
 		}
-		if ($_GET['edit']) {
+		if (isset($_GET['edit'])) {
 			$get = $_GET['edit'];
 			return $where = "WHERE book_id = '$get'";
 		}
-		if ($_GET['id']) {
+		if (isset($_GET['id'])) {
 			$get = $_GET['id'];
 			return $where = "WHERE book_id = '$get'";
 		}
-		if ($_GET['author']) {
+		if (isset($_GET['author'])) {
 			$get = $_GET['author'];
 			return $where = "WHERE author LIKE '$get'";
 		}
-		if ($_GET['serial']) {
+		if (isset($_GET['serial'])) {
 			$get = $_GET['serial'];
 			return $where = "WHERE book_serial LIKE '$get'";
 		}
-		if ($_GET['edition']) {
+		if (isset($_GET['edition'])) {
 			$get = $_GET['edition'];
 			return $where = "WHERE edition_add LIKE '$get'";
 		}
@@ -71,12 +71,12 @@ class SelectList extends SelectWithRate
 	public function SortByRate(){
 		$select_res_with_rate = $this->SelectListGet();
 		if ($select_res_with_rate){
-			if ($_GET['rsort'] == "b") {
+			if (isset($_GET['rsort']) && $_GET['rsort'] == "b") {
 				usort($select_res_with_rate, function($a, $b){
     				return ($a['rate'] - $b['rate']);
 				});
 				return $select_res_rate  = $select_res_with_rate;
-			} elseif ($_GET['rsort'] == "s") {
+			} elseif (isset($_GET['rsort']) && $_GET['rsort'] == "s") {
 				usort($select_res_with_rate, function($a, $b){
     				return $select_res_rate  = ($b['rate'] - $a['rate']);
 				});

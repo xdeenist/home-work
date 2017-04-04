@@ -1,4 +1,8 @@
-<?php session_start(); 
+<?php 
+if (!isset($_SESSION)) {
+  session_start(); 
+}
+// var_dump($_SESSION);
 require_once '../controller/user_exit.php';
 require_once '../controller/search.php';
 ?>
@@ -14,6 +18,7 @@ require_once '../controller/search.php';
 <link rel="stylesheet" type="text/css" href="../stylesheet/color.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="../stylesheet/star.css" />
 
+<script type="text/javascript" src="//vk.com/js/api/openapi.js?142"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
@@ -37,9 +42,11 @@ require_once '../controller/search.php';
       <div id="system_navigation" class="s_nav">
         <ul class="s_list_1 clearfix">
           <li><a href="index.php">Главная</a></li>
-          <?php if ($_SESSION['login']) { ?>
+          <?php if (!empty($_SESSION)) { 
+                    if (isset($_SESSION['login'])) { ?>
                    <li><a href="cabinet.php"><?="Hi" . " " . $_SESSION['user'];?></a> 
                    <a style="margin-left: 5px" href="?exit=true">exit</a> </li>    
+                    <?php } ?>
           <?php  } else { ?> <li><a href="login.php">Вход / регистрация</a></li> <?php } ?>
           <li><a href="static.php">О нас</a></li>
           <li><a href="contacts.php">Обратная связь</a></li>

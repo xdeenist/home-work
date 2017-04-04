@@ -1,6 +1,6 @@
 <?php
 require_once '../model/user.class.php';
-session_start(); 
+
 /**
 *  User validation class. Register & Login 
 *  Hash password - md5 + salt
@@ -55,6 +55,7 @@ class UserValid extends User
 
 	public function UserValidation(){
 		if (isset($_POST['log_sub'])) {
+			session_start(); 
 			$UsSel = $this->UserSelect();
             if ($UsSel) {
             	if ($this->HashPwd() == $UsSel[0]['user_pass']) {

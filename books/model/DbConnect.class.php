@@ -22,7 +22,7 @@ class DbConnect
     }
     public static function getConnect(){
         if (!self::$db) {
-            self::$db = new DbConnect("localhost", "books", "level", "pass");
+            self::$db = new DbConnect("localhost", "books", "level", "1");
         }
         return self::$db->conn;
     }

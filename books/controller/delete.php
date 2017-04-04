@@ -21,7 +21,7 @@ class Delete extends Select
 		}
 	}
 	public function DelImg(){
-		if ($_POST{'myfile_img_del'}) {
+		if (isset($_POST{'myfile_img_del'})) {
 			$id = $_GET['edit'];
 			$img_name = parent::selectAll("SELECT book_img FROM books WHERE book_id  = '$id'");
 			$del_file = $this->Delete($img_name[0]['book_img'], "img/");
@@ -31,7 +31,7 @@ class Delete extends Select
 	}
 
 	public function DelPost(){
-		if ($_GET['bookdel']) {
+		if (isset($_GET['bookdel'])) {
 			$id = $_GET['bookdel'];
 			$img_name = parent::selectAll("SELECT book_img FROM books WHERE book_id  = '$id'");
 			$del_file = $this->Delete($img_name[0]['book_img'], "img/");

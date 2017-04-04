@@ -1,6 +1,6 @@
 <?php 
 require_once '../model/select.class.php';
-session_start();
+// session_start();
 /**
 * 
 */

@@ -21,7 +21,6 @@
  		for ($i=0; $i < count($select_rate); $i++) { 
  			$arr[] = $select_rate[$i]['rate'];
  		}
- 		// var_dump($arr);
  		if ($arr) {
  			return $rate = (int) (ceil(array_sum($arr) / count($arr)));
  		}
@@ -31,9 +30,12 @@
 		for ($i=0; $i < count($select_for_rate); $i++) {
 			$id = $select_for_rate[$i]['book_id'];
 			$rate1['rate'] = $this->RateCalc("WHERE book_id = $id");
-			$result = array_merge($select_for_rate[$i], $rate1);
+			$count_rate['count_rate'] = count($this->RateSel("WHERE book_id = $id"));
+			$result = array_merge($select_for_rate[$i], $rate1,$count_rate);
 			$result_select[] = $result;
 		}
-		return $result_select;
+		if (!empty($result_select)) {
+			return $result_select;
+		}		
 	}
  }

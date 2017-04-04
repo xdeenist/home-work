@@ -1,6 +1,6 @@
 <?php
      require_once '../controller/select_one.php';
-     session_start();
+     // session_start();
 ?>
 
       <div id="product_images" class="grid_6 alpha">
@@ -38,6 +38,7 @@
             <li class="four"><a href="../view/view.php?id=<?=$_GET['id']?>&star=4" title="4 Stars">4</a></li>
             <li class="five"><a href="../view/view.php?id=<?=$_GET['id']?>&star=5" title="5 Stars">5</a></li>
           </ul>
+          <span>  голосов:(<?=$result_sel_one[0]['count_rate']?>)</span>
           </dd>
         </dl>
         <div id="product_share" class="clearfix">
@@ -67,7 +68,7 @@
           <!-- <dd><p><a href="../files/<?=$result_sel_one[0]['book_file']?>" download>Скачать файл</a></dd> -->
           <?php $n = substr($result_sel_one[0]['book_file'], -4);?>
           <!-- <dd><a href="../controller/zip_arhivate.php" class="s_button_3 s_main_color_bgr"><span class="s_text"><?=$n?></span></a></dd> -->
-          <dd><a href="../controller/zip_arhivate.php" class="s_button_3 s_main_color_bgr"><span class="s_text">Скачать *.zip</span></a></dd>
+          <dd><a href="../controller/zip_arhivate.php?f_name=<?=$result_sel_one[0]['book_file']?>" class="s_button_3 s_main_color_bgr"><span class="s_text">Скачать *.zip</span></a></dd>
         </dl>
         <?php if ($_SESSION['userstatus'] == "admin" || $result_sel_one[0]['user_id'] == $_SESSION['user_id']) { ?>
             <a href="../view/add.php?edit=<?=$result_sel_one[0]['book_id']?>" class="s_main_color" style="margin-left: 25px"><strong>Редактировать</strong></a>

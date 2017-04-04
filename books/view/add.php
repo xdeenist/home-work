@@ -30,11 +30,11 @@
         <div id="breadcrumbs" class="grid_12">
           <a href="index.php">Главная</a>
            &gt; <a href="cabinet.php">Кабинет</a>
-           <?php if ($_GET['edit']) { ?>
+           <?php if (isset($_GET['edit'])) { ?>
              &gt; <a href="add.php">Редактировать книгу</a>
            <?php } else { ?> &gt; <a href="add.php">Добавить книгу</a> <?php } ?>             
         </div>
-        <?php if ($_GET['edit']) { ?>
+        <?php if (isset($_GET['edit'])) { ?>
         <h1>Редактировать книгу</h1>
         <?php } else { ?> <h1>Добавить книгу</h1> <?php } ?>   
       </div>
@@ -52,7 +52,7 @@
     <div class="grid_16">
 
         <?php
-          if (!$_GET['edit']) {
+          if (!isset($_GET['edit'])) {
              require_once '../view/include/add_form.php';
            } else { require_once '../view/include/add_form_for_edit.php';}
         ?>      

@@ -1,7 +1,10 @@
 <?php 
 require_once 'add_book.php';
 require_once 'delete.php';
-session_start();
+if (!isset($_SESSION)) {
+	session_start();
+}
+
 // var_dump($_SESSION);
 /**
 * 
@@ -11,7 +14,7 @@ class EditBook extends AddBook
 	
 	function __construct()
 	{
-		if ($_GET['edit']) {		
+		if (isset($_GET['edit'])) {		
 			$user = parent::selectAll("SELECT user_id FROM books WHERE book_id=" . $_GET['edit']);
 			if ($user[0]['user_id'] == $_SESSION['user_id'] || $_SESSION['userstatus'] == "admin") {
 			} else {header("Location: ../index.php");}
@@ -56,6 +59,7 @@ class EditBook extends AddBook
 					if ($get_book_name) {
 						$update_param = array(":book_n" => $_POST['book_name_edit'], ":book_ser" => $_POST['serial_edit'], ":auth" => $_POST['author_edit'], ":disc" => $_POST['discr_edit'], ":edition" => $_POST['edition_edit'], ":year" => $_POST['year_edit'], ":gen_add" => $select_genre_id[0]['genre_id'], ":i_file" => $get_img_name, ":b_file" => $get_book_name);
 						$update = parent::update("UPDATE books SET book_name = :book_n, book_serial = :book_ser, author = :auth, discr = :disc, edition_add = :edition, year_add = :year, genre_add_id = :gen_add, book_img = :i_file, book_file = :b_file WHERE book_id = $id", $update_param );
+						header("Location: ../view/cabinet.php");
 					} else{ return $error_edit = "Вы неправильно загрузили книгу"; }
 				} else { return $error_edit = "Вы неправильно ввели год"; }
 			} else { return $error_edit = "Вы не заполнили все поля!"; }

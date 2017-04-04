@@ -1,6 +1,6 @@
 <?php  
-    require_once '../controller/select_list.php'; 
-      if (!$_GET['search']) {
+    require_once '../controller/select_list.php';
+      if (!isset($_GET['search'])) {
         if (empty($select_res_rate)) { ?>
         <h1 class="s_main_color">Здесь пока ничего нет</h1>
   <?php } ?>

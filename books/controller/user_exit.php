@@ -12,9 +12,12 @@ class UserEx
 	}
 
 	public function ExitUser(){
-		if ($_GET['exit'] == true) {
-			session_destroy(); 
-            header('Location: ../index.php');
+		if (isset($_GET['exit'])) {
+			if ($_GET['exit'] == true) {
+				session_destroy(); 
+            	header('Location: ../index.php');
+			}
+			
 		}
 	}
 }

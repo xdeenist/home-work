@@ -1,6 +1,6 @@
 <?php 
  require_once '../model/select.class.php';
-session_start();
+// session_start();
 /**
 * 
 */
@@ -12,7 +12,7 @@ class AddRate extends Select
 	}
 
 	public function BookRateAddDb(){
-		if ($_GET['star']) {
+		if (isset($_GET['star'])) {
 			$check_user = parent::selectAll("SELECT * FROM rate WHERE user_id = '{$_SESSION['user_id']}' AND book_id = '{$_GET['id']}'");
 			if ($check_user[0]['rate']) {
 				$update_rate = parent::update("UPDATE rate SET rate = '{$_GET['star']}' WHERE user_id = '{$_SESSION['user_id']}' AND book_id = '{$_GET['id']}'");				

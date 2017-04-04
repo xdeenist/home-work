@@ -16,7 +16,7 @@
       require '../controller/recursion_comment.php';
      ?>
       <!-- <div class="pagination"><div class="results">Showing 1 to 1 of 1 (1 Pages)</div></div> <--></-->
-    <?php if ($_GET['comment'] == "mine" || is_numeric($_GET['comment'])) { ?>
+    <?php if (isset($_GET['comment']) && $_GET['comment'] == "mine" || is_numeric(isset($_GET['comment']))) { ?>
     <h4 class="s_title_1"><span class="s_main_color">Оставить</span> Коментарий:</h4>
     <div id="review_title" class="clear"></div>
       <form method="post">
@@ -29,7 +29,7 @@
       <div id="answer"></div>
       <div id="edit"></div>
       <div id="comment"></div>
-    <?php } elseif($_GET['comment_edit']){ ?>
+    <?php } elseif(isset($_GET['comment_edit'])){ ?>
                   <p class="error" style="color: red; font-weight: bolder; text-align: center";><?=$err_edit;?></p>
                   <h4 class="s_title_1"><span class="s_main_color">Оставить</span> Коментарий:</h4>
                   <div id="review_title" class="clear"></div>

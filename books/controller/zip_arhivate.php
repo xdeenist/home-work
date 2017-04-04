@@ -1,5 +1,4 @@
-<?php
-     require_once '../controller/select_one.php';
+<?php 
 
 /**
 * 
@@ -30,4 +29,5 @@ class ZipFile
 }
 
 $zipf = new ZipFile();
-$zipdown = $zipf->ZipFileD("../files/", $result_sel_one[0]['book_file']);
+$zipdown = $zipf->ZipFileD("../files/", $_GET['f_name']);
+// var_dump($_GET['f_name']);

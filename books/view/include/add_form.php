@@ -5,7 +5,7 @@
       <form id="create" class="clearfix"  method="post" enctype="multipart/form-data">
         <h2 class="s_title_1"><span class="s_secondary_color">Заполните все</span> поля</h2>
         <div class="clear"></div>
-        <p style="color: red; font-weight: bolder"><?=$add_err . $img_insert;?></p>
+        <p style="color: red; font-weight: bolder"><?php $add_err;?></p>
         <div class="s_row_2 clearfix">
           <label><strong>Название</strong></label>
           <input name="book_name" type="text" size="90" maxlength="100"/>

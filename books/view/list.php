@@ -18,7 +18,7 @@
           &gt;
           <a href="">Все книги</a>
         </div>
-          <?php if ($_GET['search']) { ?>
+          <?php if (isset($_GET['search'])) { ?>
             <h1>Результаты поиска</h1>
           <?php } else {?><h1>Все книги</h1><?php } ?>          
       </div>
@@ -70,7 +70,7 @@
       </div>
       
       <div class="pagination">
-        <div class="results">Showing 1 to 6 of 6 (1 Pages)</div>
+        <!-- <div class="results">Showing 1 to 6 of 6 (1 Pages)</div> -->
       </div>
       
     </div>

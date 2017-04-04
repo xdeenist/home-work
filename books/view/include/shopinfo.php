@@ -22,14 +22,41 @@
         <div id="twitter" class="grid_3">
           <h2>Twitter</h2>
           <ul id="twitter_update_list"><li></li></ul>
-          <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script> 
-          <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/themeburn.json?callback=twitterCallback2&amp;count=2"></script> 
+            <div class="twitter-container">
+
+            <a href="https://twitter.com/share" class="twitter-share-button" data-show-count="false">Tweet</a>
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<!-- <a class="twitter-timeline" data-dnt="true" data-lang="ru" data-theme="dark" data-tweet-limit="3" data-chrome="noheader nofooter noborders noscrollbar transparent" href="https://twitter.com/sad_pingved"  data-widget-id="430050879">Твиты пользователя @sad_pingved</a> -->
+</div>
+            <script type="text/javascript" charset="utf-8">
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+    $(function () {      
+        var $cont = $(".twitter-container"),
+        prd = setInterval(function () {
+            if ($cont.find("> iframe").contents().find(".twitter-timeline").length > 0) {
+                var $body = $cont.find("> iframe").contents().find("body");
+                clearInterval(prd)
+                $body.attr("id", "twitterStyled")
+                .append($("#twitterStyle"));
+            }
+        }, 100);
+    });
+            </script>
         </div>
         <div id="facebook" class="grid_3">
-          <h2>Facebook</h2>
+          <h2>VK</h2>
           <div class="s_widget_holder">
-            <fb:fan profileid="dmitry.horoshenko" stream="0" connections="6" logobar="0" width="220" css="http://svest.no-ip.org/test/opencart/catalog/view/theme/shoppica/stylesheet/facebook.css.php?300"></fb:fan>
+            
+
+<!-- VK Widget -->
+
           </div>
+<div id="vk_groups"></div>
+<script type="text/javascript">
+VK.Widgets.Group("vk_groups", {mode: 4, no_cover: 1, height: "100"}, 54315157);
+</script>
+
         </div>
         <div class="clear"></div>
       </div>

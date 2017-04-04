@@ -4,7 +4,7 @@
 ?>
   <div id="content" class="container_12"> 
       <?php if ($_SESSION['userstatus'] == "admin") { ?>
-      <a href="../view/admin.php" class="s_button_1 s_main_color_bgr" style=""><span class="s_text">User control</span></a>
+      <a href="../view/admin.php" class="s_button_1 s_main_color_bgr left" style="margin: 15px"><span class="s_text">User control</span></a>
    <?php } ?> 
     <div id="order_history" class="grid_12">
       <h1>Добавленные книги:</h1>
