@@ -8,6 +8,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -23,7 +24,7 @@ AppAsset::register($this);
 </head>
 <body>
 <?php $this->beginBody() ?>
-
+<?  ?>
 <div class="wrap">
     <?php
     NavBar::begin([
@@ -36,9 +37,16 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            // ['label' => 'About', 'url' => ['/site/about']],
-            // ['label' => 'Contact', 'url' => ['/site/contact']],
+            // ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'Personal Area', 'url' => ['/site/personal-area']],
+            ['label' => 'Notice ' . Html::tag('span', 25, ['class' => 'badge']),         
+                'items' => [
+                ['label' => 'Notice 1', 'url' => '#'],
+                '<li class="dropdown-header">Dropdown Header</li>',
+                ['label' => 'Notice 2', 'url' => '#'],
+                ],
+            ],
+
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
@@ -50,8 +58,9 @@ AppAsset::register($this);
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+            ),
         ],
+        'encodeLabels' => false
     ]);
     NavBar::end();
     ?>

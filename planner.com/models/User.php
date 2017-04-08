@@ -17,7 +17,7 @@ class User extends ActiveRecord  implements IdentityInterface{
      * @return bool if password provided is valid for current user
      */
     public function setPassword($password){
-        $this->password = md5($password) . strlen($password);
+        return $this->password = md5($password) . strlen($password);
     }
 
     /**

@@ -5,6 +5,11 @@
 $this->title = 'Planner';
 ?>
 <div class="site-index">
+	<h1>
+		<?php echo $a ?>
+		<br/>
+		<?php echo $b ?>
+	</h1>
 
     <div class="jumbotron">
         <h1>Congratulations!</h1>

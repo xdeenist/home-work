@@ -3,8 +3,11 @@
 namespace app\controllers;
 
 
+use app\models\PersonalArea;
+use app\models\Task;
 use Yii;
 use yii\filters\AccessControl;
+use yii\rest\CreateAction;
 use yii\web\Controller;
 use app\models\Signup;
 use yii\filters\VerbFilter;
@@ -60,9 +63,9 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($a, $b)
     {
-        return $this->render('index');
+        return $this->render('index', ['a' => $a, 'b' => $b]);
     }
 
     /**
@@ -78,7 +81,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect('personal-area');
         }
         return $this->render('login', [
             'model' => $model,
@@ -140,5 +143,34 @@ class SiteController extends Controller
             }            
         }
         return $this->render('signup', ['model' => $model]);
+    }
+
+    public function actionCreate()
+    {
+        $model = new Task();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->task_id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionPersonalArea()
+    {
+        $model = new PersonalArea();
+        return $this->render('personalarea', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionTask()
+    {
+        $model = new Task();
+        return $this->render('task', [
+            'model' => $model,
+        ]);
     }
 }

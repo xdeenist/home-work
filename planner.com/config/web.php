@@ -17,7 +17,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
-                '<action>'=>'site/<action>',
+                '<controller>/<action>/<a>/<b>'=>'<controller>/<action>',
             ],
         ],
         'cache' => [
