@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models;
+use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
@@ -8,6 +9,19 @@ class User extends ActiveRecord  implements IdentityInterface{
     public $id;
     public $authKey;
     public $accessToken;
+
+    public static function getUserId($username){
+        $employer = User::find()->select('user_id')->where(['username' => $username])->asArray()->one();
+        $res['empl_id'] = $employer['user_id'];
+        Yii::$app->session->open();
+        $res['owner_id'] = Yii::$app->user->id;
+        return $res;
+    }
+
+    public static function getUserName($id){
+        $user = User::find()->select('username')->where(['user_id' => $id])->asArray()->one();
+        return $user['username'];
+    }
 
 
     /**
@@ -45,6 +59,11 @@ class User extends ActiveRecord  implements IdentityInterface{
         return static::findOne(['email'=>$email]);
     }
 
+    public static function findByUsername($username)
+    {
+        return static::findOne(['username'=>$username]);
+    }
+
 /**======================================================= */
     /**
      * @inheritdoc
@@ -59,6 +78,7 @@ class User extends ActiveRecord  implements IdentityInterface{
     public function getId()
     {
         return $this->user_id;
+
     }
 
     /**
@@ -77,6 +97,11 @@ class User extends ActiveRecord  implements IdentityInterface{
         return $this->authKey === $authKey;
     }
 
+
+    public function generateAutKey(){
+        return $this->auth_key = Yii::$app->security->generateRandomString();
+    }
+
     /**
      * @inheritdoc
      */
@@ -91,3 +116,5 @@ class User extends ActiveRecord  implements IdentityInterface{
         return null;
     }
 }
+
+

@@ -7,6 +7,7 @@ use Yii;
 use yii\base\Model;
 
 
+
 class Signup extends Model
 {
     public $username;
@@ -34,6 +35,7 @@ class Signup extends Model
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->userstatus = $this->userstatus;
+        $user->generateAutKey();
         return $user->save();
     }
     public function getUser()

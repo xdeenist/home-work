@@ -3,8 +3,11 @@
 namespace app\controllers;
 
 
+use app\models\Neo;
 use app\models\PersonalArea;
+use app\models\Resource;
 use app\models\Task;
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\rest\CreateAction;
@@ -13,6 +16,7 @@ use app\models\Signup;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
@@ -63,41 +67,9 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex($a, $b)
+    public function actionIndex()
     {
-        return $this->render('index', ['a' => $a, 'b' => $b]);
-    }
-
-    /**
-     * Login action.
-     *
-     * @return string
-     */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->redirect('personal-area');
-        }
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Logout action.
-     *
-     * @return string
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
+        return $this->render('index');
     }
 
     /**
@@ -128,49 +100,19 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    /**
-     * Displays reg page.
-     *
-     * @return string
-     */
-    public function actionSignup()
+    public function actionUpload()
     {
-        $model = new Signup();
-        if (isset($_POST['Signup'])) {
-            $model->attributes = Yii::$app->request->post('Signup');
-            if ($model->validate() && $model->signup()) {
-                return $this->goHome();
-            }            
+        $model = new Resource();
+
+        if (Yii::$app->request->isPost) {
+            $model->res_path = UploadedFile::getInstance($model, 'res_path');
+            if ($model->upload()) {
+                // file is uploaded successfully
+                return;
+            }
         }
-        return $this->render('signup', ['model' => $model]);
+
+        return $this->render('upload', ['model' => $model]);
     }
 
-    public function actionCreate()
-    {
-        $model = new Task();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->task_id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    public function actionPersonalArea()
-    {
-        $model = new PersonalArea();
-        return $this->render('personalarea', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionTask()
-    {
-        $model = new Task();
-        return $this->render('task', [
-            'model' => $model,
-        ]);
-    }
 }

@@ -17,7 +17,14 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
-                '<controller>/<action>/<a>/<b>'=>'<controller>/<action>',
+                '<controller>/<action>'=>'<controller>/<action>',
+                'task/update/<id>'=>'task/update',
+                'task/view/<id>'=>'task/view',
+                'task/task/<id>'=>'task/task',
+                'task/create/<id>'=>'task/create',
+                'task/delete/<id>'=>'task/delete',
+                'user/info/<id>'=>'user/info',
+                // 'task/task-submit/<id><type>'=>'task/task-submit',
             ],
         ],
         'cache' => [

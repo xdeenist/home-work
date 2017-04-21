@@ -3,12 +3,14 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+//use Yii;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
+
 
 AppAsset::register($this);
 ?>
@@ -27,9 +29,10 @@ AppAsset::register($this);
 <?  ?>
 <div class="wrap">
     <?php
+    Yii::$app->session->open();
     NavBar::begin([
         'brandLabel' => 'Planner',
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandUrl' => ['/task/my-tasks'],
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -37,21 +40,31 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            // ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Personal Area', 'url' => ['/site/personal-area']],
-            ['label' => 'Notice ' . Html::tag('span', 25, ['class' => 'badge']),         
-                'items' => [
-                ['label' => 'Notice 1', 'url' => '#'],
-                '<li class="dropdown-header">Dropdown Header</li>',
-                ['label' => 'Notice 2', 'url' => '#'],
-                ],
-            ],
-
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => '', 'url' => ['#']]
+            ) : (                
+                ['label' => 'Personal Area', 'url' => ['/user/personal-area']]
+            ),
+            Yii::$app->user->isGuest ? (
+                ['label' => 'Home', 'url' => ['/site/index']]
+            ) : (
+                ['label' => 'My Tasks', 'url' => ['/task/my-tasks']]
+            ),
+            Yii::$app->user->isGuest ? (
+            ['label' => 'Register', 'url' => ['/user/signup']]
+            ) : (
+                ['label' => 'Notice ' . Html::tag('span', 25, ['class' => 'badge']),
+                    'items' => [
+                        ['label' => 'Notice 1', 'url' => '#'],
+                        ['label' => 'Notice 2', 'url' => '#'],
+                    ],
+                ]
+            ),
+            Yii::$app->user->isGuest ? (
+                ['label' => 'Login', 'url' => ['/user/login']]
             ) : (
                 '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
+                . Html::beginForm(['/user/logout'], 'post')
                 . Html::submitButton(
                     'Logout (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
@@ -60,8 +73,9 @@ AppAsset::register($this);
                 . '</li>'
             ),
         ],
-        'encodeLabels' => false
+        'encodeLabels' => false 
     ]);
+
     NavBar::end();
     ?>
 
