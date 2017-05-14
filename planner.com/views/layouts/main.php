@@ -81,7 +81,7 @@ AppAsset::register($this);
             'class' => 'navbar-default navbar-fixed-top',
         ],
     ])
-    ) : (                
+    ) : (
     NavBar::begin([
         'brandLabel' => 'Planner',
         'brandUrl' => ['/user/personal-area'],
@@ -125,27 +125,40 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'nav navbar-nav navbar-right', 'id' => 'navbarnav'],
         'items' => [
+            [
+                'label' => 'Admin Panel',
+                'url' => ['/admin/table'],
+                'visible' => Yii::$app->user->can('dashboard')
+            ],
+            [
+                'label' => 'Personal Area',
+                'url' => ['/user/personal-area'],
+                'visible' => !Yii::$app->user->isGuest
+            ],
+            [
+                'label' => 'Home',
+                'url' => ['/site/index'],
+                'visible' => Yii::$app->user->isGuest
+            ],
+            [
+                'label' => 'My Tasks',
+                'url' => ['/task/my-tasks'],
+                'visible' => !Yii::$app->user->isGuest
+            ],
+            [
+                'label' => 'Register',
+                'url' => ['/user/signup'],
+                'visible' => Yii::$app->user->isGuest
+            ],
+            [
+                'label' => 'Notice ' . Html::tag('span', 0, ['class' => 'badge', 'id' => 'baddge']),
+                'items' => [
+                    ['label' => '', 'url' => '#'],
+                ],
+                'visible' => !Yii::$app->user->isGuest
+            ],
             Yii::$app->user->isGuest ? (
-                ['label' => '', 'url' => ['#']]
-            ) : (                
-                ['label' => 'Personal Area', 'url' => ['/user/personal-area']]
-            ),
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Home', 'url' => ['/site/index']]
-            ) : (
-                ['label' => 'My Tasks', 'url' => ['/task/my-tasks']]
-            ),
-            Yii::$app->user->isGuest ? (
-            ['label' => 'Register', 'url' => ['/user/signup']]
-            ) : (
-                ['label' => 'Notice ' . Html::tag('span', 0, ['class' => 'badge', 'id' => 'baddge']),
-                    'items' => [
-                        ['label' => '', 'url' => '#'],
-                    ],
-                ]
-            ),
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/user/login']]
+            ['label' => 'Login', 'url' => ['/user/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/user/logout'], 'post')

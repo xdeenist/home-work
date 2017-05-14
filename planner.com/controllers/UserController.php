@@ -69,6 +69,9 @@ class UserController extends Controller
      */
     public function actionLogin()
     {
+        /*var_dump(unserialize('O:17:"rbac\\UserRoleRule":3:{s:4:"name";s:8:"userRole";s:9:"createdAt";N;s:9:"updatedAt";N;}'));
+        die();*/
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }

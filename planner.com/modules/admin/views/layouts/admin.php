@@ -71,12 +71,12 @@ AppAsset::register($this);
         var $s = nbInit({});
 
         function updateData(model,id,key,value){
-            $.getJSON("?r=table%2Fupdate",{model: model, id: id, key: key, value: value}, function(data){
+            $.getJSON("<?= Url::to('table/update') ?>",{model: model, id: id, key: key, value: value}, function(data){
             });
         }
 
         function readModelData(model){
-            $.getJSON("?r=table%2Fdata",{model: model}, function(data){
+            $.getJSON("<?= Url::to('table/data') ?>",{model: model}, function(data){
                 $s.dataHead = [data[0]];
                 var ediItem, ediKey, ediCell;
                 data[1].forEach(function(item){
@@ -116,7 +116,7 @@ AppAsset::register($this);
                         if (confirm("Are you sure to delete?")){
                             var id = this.parentElement.children[0].innerText;
                             alert(id);
-                            $.getJSON("?r=table%2Fdelete",{model: model, id: id}, function(data){
+                            $.getJSON("<?= Url::to('table/delete') ?>",{model: model, id: id}, function(data){
                                 readModelData(model);
                             });
                         }
@@ -136,7 +136,7 @@ AppAsset::register($this);
             //});
         }
         document.addEventListener("DOMContentLoaded",function(){
-            $.getJSON("?r=table%2Fmodels", function(models){
+            $.getJSON("<?= Url::to('table/models') ?>", function(models){
                 $s.models = models;
                 for (var key in models){
                     readModelData(key);

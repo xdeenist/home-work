@@ -11,6 +11,10 @@ class User extends ActiveRecord  implements IdentityInterface
     public $authKey;
     public $accessToken;
 
+    const ROLE_GUEST = 'guest';
+    const ROLE_USER = 'user';
+    const ROLE_ADMIN = 'admin';
+
     public static function tableName()
     {
         return 'user';
@@ -31,7 +35,7 @@ class User extends ActiveRecord  implements IdentityInterface
 
     public static function identityUser(){
         if (!Yii::$app->user->id) {
-            $this->redirect('/site/index');  //wtf?
+            //$this->redirect('/site/index');  //wtf?
         }
     }
 
