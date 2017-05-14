@@ -1,0 +1,484 @@
+table.jsTT {
+    width: calc(70% - 20px);
+    border-collapse: collapse;
+    table-layout: fixed;
+    border: 1px solid #cecece;
+    margin: 0 10px;
+}
+
+table.jsTT th {
+    background-color: #f8f7f7;
+    color: black;
+    font-weight: bold;
+    border: 1px solid #cecece;
+    padding: 10px;
+    text-align: left;
+}
+
+table.jsTT th.width-owner {
+    width:120px;
+}
+
+table.jsTT th.width-default {
+    width:100px;
+}
+
+table.jsTT th.width-files {
+    width:80px;
+}
+
+table.jsTT th.width-progress {
+    width:100px;
+}
+
+
+table.jsTT td,
+table.jsTT th{
+    text-align: center;
+}
+
+table.jsTT td:first-child,
+table.jsTT th:first-child{
+    text-align: left;
+}
+
+.project {
+    font-weight:bold;
+}
+.milestone {
+    font-style: italic;
+}
+
+table.jsTT td {
+    position: static;
+    border-left: 1px solid #cecece;
+    border-right: 1px solid #cecece;
+    padding: 5px 10px;
+}
+
+table.jsTT tr[data-tt-level="1"] td:first-child {
+    background-color: #c6c9c3;
+}
+
+table.jsTT tr[data-tt-level="2"] td:first-child {
+    background-color: #dbdfd8;
+}
+
+table.jsTT tr[data-tt-level="3"] td:first-child {
+    background-color: #f1f2f0;
+}
+
+table.jsTT tbody tr:hover {
+    background-color: rgb(253, 220, 181);
+}
+
+.status-new {
+    background-color: rgba(247,248,248,.3) !important;
+    color: #71787a;
+
+}
+.status-inprogress {
+    background-color: rgba(188,223,241,.3) !important;
+}
+.status-done {
+    background-color: rgba(156,209,89,.3) !important;
+}
+.status-cancelled {
+    background-color: rgba(255,42,41,.3) !important;
+}
+
+.status-now {
+    background-color: rgba(255,0,0,.5) !important;
+    /*-webkit-box-shadow: inset 0px 0px 10px 0px rgba(255,255,255,.8);*/
+    /*-moz-box-shadow: inset 0px 0px 10px 0px rgba(255,255,255,.8);*/
+    /*box-shadow: inset 0px 0px 10px 0px rgba(255,255,255,.8);*/
+
+}
+
+.status-now:hover {
+    background-color: rgba(255,0,0,.8) !important;
+    /*-webkit-box-shadow: inset 0px 0px 10px 0px rgba(255,255,255,1);*/
+    /*-moz-box-shadow: inset 0px 0px 10px 0px rgba(255,255,255,1);*/
+    /*box-shadow: inset 0px 0px 10px 0px rgba(255,255,255,1);*/
+
+}
+.status-new:hover {
+    background-color: rgba(247,248,248,.5) !important;
+
+}
+.status-inprogress:hover {
+    background-color: rgba(188,223,241,.5) !important;
+
+}
+.status-done:hover {
+    background-color: rgba(156,209,89,.5) !important;
+
+}
+.status-cancelled:hover {
+    background-color: rgba(255,42,41,.5) !important;
+
+}
+
+
+.jsTT a{
+    position: relative;
+    margin: 0 15px;
+}
+.jsTT a i{
+    font-size: 20px;
+}
+
+.file-links {
+    display: flex;
+    width:100%;
+    justify-content: center;
+    height:100%;
+}
+.progress-bar-for-time {
+    margin: 10px 0;
+}
+
+.show-tree {
+    display: inline-block;
+    width:10px;
+    height: 10px;
+
+}
+.show-tree input[type='checkbox'] {
+    // display: none;
+}
+.show-tree label {
+    width:100%;
+    height: 100%;
+    display: block;
+    position: relative;
+    cursor: pointer;
+}
+.show-tree label * {
+    transition: all .3s linear;
+}
+
+
+.show-tree label:before {
+    content: '';
+    background-image: url('/web/css/images/svgs/chevron.svg');
+    -webkit-background-size:cover;
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-position: center;
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    // z-index: 5555;
+    left: 0;
+    top: 0;
+    transition: all .2s linear;
+}
+/*.show-tree label:after {*/
+    /*content: '';*/
+    /*background-image: url('../images/svgs/chevron.svg');*/
+    /*-webkit-background-size:cover;*/
+    /*background-size:cover;*/
+    /*background-repeat:no-repeat;*/
+    /*background-position: center;*/
+    /*display: none;*/
+    /*width: 20px;*/
+    /*height: 20px;*/
+    /*position: absolute;*/
+    /*left: 0;*/
+    /*top: 0;*/
+    /*transform: rotate(1.57rad);*/
+    /*transition: all .3s linear;*/
+/*}*/
+/*.show-tree input[type='checkbox']:checked + label:after {*/
+    /*display: block;*/
+/*}*/
+.show-tree input[type='checkbox']:checked + label:before {
+    transform: rotate(1.57rad);
+}
+/*.show-tree label .fa-chevron-right {*/
+    /*display: block;*/
+/*}*/
+/*.show-tree label .fa-chevron-down {*/
+    /*display: none;*/
+/*}*/
+/*.show-tree input[type='checkbox']:checked + label .fa-chevron-down {*/
+    /*display: block;*/
+/*}*/
+/*.show-tree input[type='checkbox']:checked + label .fa-chevron-right{*/
+    /*display: none;*/
+/*}*/
+
+/*************************************menu******************************/
+p {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    display: flex;
+    padding: 0;
+}
+
+ul li {
+    list-style: none;
+}
+
+.progress-icon:before,
+.deadline-icon:before,
+.start-time:before,
+.time-spend:before,
+.estimate-icon:before
+{
+    content: '';
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    background-size: contain;
+    background-position: left center;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+
+}
+.progress-icon:before {
+    background-image: url('/web/css/images/svgs/batery.svg');
+}
+.deadline-icon:before {
+    background-image: url('/web/css/images/svgs/fire-clock.svg');
+}
+.start-time:before {
+    background-image: url('/web/css/images/svgs/schedule.svg');
+}
+.time-spend:before {
+    background-image: url('/web/css/images/svgs/clock.svg');
+}
+.estimate-icon:before {
+    background-image: url('/web/css/images/svgs/estimate.svg');
+}
+
+
+.projects {
+    display: flex;
+}
+.proj-info {
+    display: flex;
+    width: 30%;
+    flex-direction: column;
+    padding:20px 15px;
+    justify-content: space-between;
+    align-items: flex-start;
+    border: 1px solid #cecece;
+}
+.proj-info div {
+    display: flex;
+    width: 100%;
+}
+.proj-info .proj-info-header {
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+.proj-info .proj-info-header p{
+    color: #81888a;
+}
+
+.proj-info .proj-description {
+    flex-direction: column;
+}
+.proj-info .proj-description .owner {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.proj-info .proj-description .owner .owner-avatar{
+    width: 75px;
+    height: 75px;
+    margin: 0 10px;
+}
+.proj-info .proj-description .owner .owner-avatar img{
+    width: 100%;
+}
+.proj-info .proj-description .owner .owner-name{
+    font-size: 20px;
+    color: #81888a;
+}
+.proj-info .proj-description .description-text{
+    margin: 5px 0;
+}
+
+.proj-info button{
+    width: 50%;
+    height: 40px;
+    border-radius: 20px;
+    border:none;
+    background-color: #cccccc;
+    font-weight: bold;
+    align-self: flex-end;
+    margin: 20px 0;
+}
+
+.proj-info .task-dependencies {
+    flex-direction: column;
+}
+.proj-info .task-dependencies .dep-title {
+    color: #81888a;
+    font-size: 16px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+
+}
+.proj-info .task-dependencies .dep-title:after {
+    content: '';
+    margin-left: 10px;
+    width:100%;
+    height:2px;
+    background-color: #cecece;
+}
+.proj-info .task-dependencies .dependencies-list {
+    width: 100%;
+    flex-wrap: wrap;
+}
+.proj-info .task-dependencies .dependencies-list .dependencies-item:before {
+    content: '/';
+    margin: 0 5px;
+}
+.proj-info .task-dependencies .dependencies-list .dependencies-item:first-child:before{
+    display: none;
+}
+
+
+.proj-info .employers {
+    align-items: center;
+}
+.proj-info .employers p{
+    width: 30%;
+    color: #81888a;
+    font-size: 16px;
+}
+.proj-info .employers ul{
+    width: 70%;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+.proj-info .employers ul li{
+    width: 35px;
+    height: 35px;
+    margin: 0 5px;
+}
+.proj-info .employers ul li img{
+    width:100%;
+}
+.proj-info .task-progress-block {
+    flex-direction: column;
+}
+.proj-info .task-progress-block .prog-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+}
+.proj-info .task-progress-block .prog-item > div {
+    width: 60%;
+    align-items: center;
+    justify-content: space-between;
+}
+.proj-info .task-progress-block .prog-item > div .progressbar {
+    width: 80%;
+    align-items: center;
+    justify-content: space-between;
+}
+.proj-info .task-progress-block .prog-item p:first-child {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.proj-info .tags-block {
+    align-items: center;
+}
+.proj-info .tags-block p{
+    color: #81888a;
+    font-size: 16px;
+    margin-right: 10px;
+}
+.proj-info .tags-block ul{
+    margin: 0;
+    flex-wrap: wrap;
+}
+.proj-info .tags-block ul li{
+    margin:5px 10px;
+    height: 30px;
+    font-size: 14px;
+    border-radius: 30px;
+    background-color: #f7f8f8;
+    padding: 5px 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress, .progress-bar, .progress-label, .progressbar, .progressbar-overlay, .progressbar-value {
+    font-weight: 700;
+    line-height: 20px;
+    height: 20px
+}
+
+.progress, .progressbar {
+    position: relative;
+    text-align: center;
+    background: rgba(0, 0, 0, .05);
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, .2)
+}
+
+.progress-bar, .progress-label, .progressbar-overlay, .progressbar-value {
+    position: absolute;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    overflow: hidden
+}
+
+.progressbar-value.ui-state-default, .progressbar-value.ui-state-default .progress-label {
+    line-height: 18px;
+    height: 18px
+}
+
+.progress-label {
+    z-index: 6;
+    width: 100%
+}
+
+.progressbar-overlay {
+    z-index: 5;
+    width: 100%;
+    opacity: .15;
+    background: url(../images/animated-overlay.gif);
+    filter: alpha(opacity=15)
+}
+
+.progressbar-small .progress-label, .progressbar-small .progressbar-overlay, .progressbar-small .progressbar-value, .progressbar-small.progressbar {
+    height: 10px
+}
+
+.progressbar-small .progressbar-value.ui-state-default {
+    height: 8px
+}
+
+.progressbar-smaller .progress-label, .progressbar-smaller .progressbar-overlay, .progressbar-smaller .progressbar-value, .progressbar-smaller.progressbar {
+    height: 4px
+}
+
+.progressbar-smaller .progressbar-value.ui-state-default {
+    height: 2px
+}
+
+.bg-black .progressbar-overlay {
+    opacity: 1;
+    filter: alpha(opacity=100)
+}

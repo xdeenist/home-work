@@ -21,15 +21,13 @@ class Resource extends \yii\db\ActiveRecord
         return 'resource';
     }
 
-    public $res_path;
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['res_path'], 'string'],
+            [['res_path'], 'required'],
         ];
     }
 
@@ -44,8 +42,8 @@ class Resource extends \yii\db\ActiveRecord
         ];
     }
 
-    public function upload()
+    public function getTaskRelations()
     {
-
+        return $this->hasMany(ResourceToTask::className(),['res_id' => 'res_id']);
     }
 }

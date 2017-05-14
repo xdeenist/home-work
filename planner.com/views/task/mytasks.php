@@ -1,12 +1,13 @@
 <h1>My tasks</h1>
 <?php
+    // use Yii;
     use \yii\widgets\ActiveForm;
     use yii\helpers\Url;
     //use app\models\Notice;
     $this->title = 'My tasks'; 
     $this->params['breadcrumbs'][] = $this->title;
     //$user_notice = Notice::find()->where(['user_id' => $id,'read_n' => Null])->asArray()->all();
-    //var_dump($user_notice);
+    // print_r($tasks); die();
 ?>
 <a href="<?php echo Url::to(['task/create']) . "/new"; ?>" class="btn btn-default col-md-1" style="margin-left: 180px; margin-top: -45px" >Create new</a>
 
@@ -36,7 +37,9 @@
 
 
 <script>
-
+// var blo = JSON.parse('<?php echo $tasks; ?>')
+// console.log('<?php echo $tasks; ?>')
+// alert(blo)
 
 
 function requiredFieldValidator(value) {
@@ -120,11 +123,16 @@ function percentCompleteSort(a, b) {
 }
 
 $(function () {
-  var indent = 0;
-  var parents = [];
+ 
 
   $.get('<?php echo Url::to(['task/get-tasks']);?>', {}, function(data){
+
     data = JSON.parse(data)
+    // console.log(data)
+    // data = eval('<?php echo $tasks; ?>')
+    // console.log(datas);
+    // dataa = JSON.parse('<?php echo $tasks; ?>')
+    // console.log(dataa)
   
   
   
@@ -154,7 +162,7 @@ $(function () {
         "finish": "01/01/2009",
         "effortDriven": false,
         "more": 123
-      };
+      }; 
       $.extend(item, args.item);
       dataView.addItem(item);
     });
@@ -210,13 +218,24 @@ $(function () {
   
       function GetFullInfo(tskid){
         $.get('<?php echo Url::to(['task/get-full-task']);?>', {'id':tskid}, function(data){
-          var onetask = JSON.parse(data)
+          var onetask = JSON.parse(data);
           console.log(onetask);
           if (onetask.lastactivity.time == 0) {
             lastactivity = onetask.lastactivity.status
           } else {
             lastactivity = onetask.lastactivity.status + " at " + onetask.lastactivity.time;
           }
+          if (onetask.owner == '<?php echo  Yii::$app->user->identity->username;?>') {
+            var updatebutton = '<a href="<?php echo Url::to(['task/update']). '/';?>'+ tskid +'"><button type="button" class="btn btn-warning">Update</button></a>';
+            console.log('<?php echo  Yii::$app->user->id;?>')
+          } else { updatebutton = " "}
+
+          if (onetask.worktime > 0) {
+            var work = onetask.worktime + ' minutes';
+          } else {
+            work = ' ';
+          }
+
           $("#fullinfo").append('<div id="taskinf" class="btn-group-lg" style="margin-top: 19px;">' +
                                 '<a href="<?php echo Url::to(['task/task']). '/';?>'+ tskid +'"><h3>Task "' + onetask.task_name + '" info: </h3></a>'+
                                 '<ul class="list-group">'+
@@ -227,14 +246,14 @@ $(function () {
                                 '<li class="list-group-item list-group-item-success" placeholder="Last Activity">Last Activity :: '+ lastactivity +'</li>' +
                                 '<li class="list-group-item list-group-item-success" placeholder="Estimation">Estimation :: ' + onetask.estimation + ' days</li>' +
                                 '<li class="list-group-item list-group-item-success" placeholder="% Complete">% Complete :: ' + onetask.percentcomplete  + ' %</li>' +
-                                '<li class="list-group-item list-group-item-success" placeholder="Work Time">Work Time :: '+ onetask.worktime +' hours</li>' +
-                                '<li class="list-group-item list-group-item-success" placeholder="Status">Status :: ' + onetask.status + '</li></ul></div>' +
-                                '<a href="<?php echo Url::to(['task/update']). '/';?>'+ tskid +'"><button type="button" class="btn btn-warning">Update</button></a>'+
+                                '<li class="list-group-item list-group-item-success" placeholder="Work Time">Work Time :: '+ work +' </li>' +
+                                '<li class="list-group-item list-group-item-success" placeholder="Status">Status :: ' + onetask.status + '</li></ul></div>' + updatebutton  +
                                 '<a href="<?php echo Url::to(['task/task']). '/';?>'+ tskid +'"><button style="margin-left: 10px" type="button" class="btn btn-success">View task</button></a>');
         })
       };     
   
       if (!$("div").is("#taskinf")) {
+        $('#fullinfo').empty();
         GetFullInfo(id);
       }  else {
         $('#fullinfo').empty();

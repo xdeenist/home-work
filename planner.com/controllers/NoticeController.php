@@ -18,8 +18,7 @@ class NoticeController extends Controller
 {
 	public function actionNotice(){
 		$notice = new Notice();
-		Yii::$app->session->open();
-		$id = $_SESSION['idUser'];
+		$id = Yii::$app->user->id;
 		$user_notice = Notice::find()->where(['user_id' => $id,'read_n' => Null])->asArray()->all();
 		echo Json::encode($user_notice);		
 	}

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\admin\models\Task */
+/* @var $model app\models\Task */
 
 $this->title = $model->task_name;
 $this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];

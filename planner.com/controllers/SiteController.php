@@ -69,6 +69,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->id) {
+            return $this->redirect('user/personal-area');
+        }
         return $this->render('index');
     }
 
@@ -113,6 +116,28 @@ class SiteController extends Controller
         }
 
         return $this->render('upload', ['model' => $model]);
+    }
+
+    public function actionSearch()
+    {
+        if (Yii::$app->request->post()) {
+            $posts = Yii::$app->request->post();
+            $post = $posts['search'];
+            $taskName = Task::find()->filterWhere(['like', 'task_name', $post])->all();
+            $taskDeskription = Task::find()->filterWhere(['like', 'task_deskription', $post])->all();
+            $users = User::find()->filterWhere(['like', 'username', $post])->all();
+        } else {
+            $post = 0;
+            $taskName = 0;
+            $taskDeskription = 0;
+            $users =0;
+        }
+        return $this->render('search', [
+                'post' => $post,
+                'taskName' => $taskName,
+                'taskDeskription' => $taskDeskription,
+                'users' => $users,
+            ]);
     }
 
 }

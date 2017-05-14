@@ -1,5 +1,5 @@
 <?php
-
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 
 $this->title = 'Planner';
@@ -7,11 +7,11 @@ $this->title = 'Planner';
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        <h1>Hello!</h1>
 
-        <p class="lead">It's a trap</p>
+        <p class="lead">Welcome to the task manager</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://pl.planner.php2.a-level.com.ua/login">Get started...</a></p>
+        <p><a class="btn btn-lg btn-success" href="<?php echo Url::to(['user/login']);?>">Get started...</a></p>
     </div>
 
     <div class="body-content">

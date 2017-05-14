@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Neo;
+use app\models\Resource;
 use Yii;
 use yii\helpers\Json;
 use app\models\Task;
@@ -14,6 +15,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Notice;
+use yii\web\UploadedFile;
 
 /**
  * TaskController implements the CRUD actions for Task model.
@@ -53,29 +55,41 @@ class TaskController extends Controller
 
     public function actionTask($id)
     {               
-        $model = $this->findModel($id);
-        $owner = User::getUserName($model->owner);        
-        $employer = User::getUserName($model->employer);
+        $taskmodel = $this->findModel($id);
+        $owner = User::getUserName($taskmodel->owner);        
+        $employer = User::getUserName($taskmodel->employer);
         $lastactivity = Timetracking::lastActivity($id);
         $worktime = Timetracking::WorkTime($id);
 
-        if ($model->employer == 0) {
+        if ($taskmodel->employer == 0) {
             $this->redirect('/task/update' . "/" . $id);
         }
 
+        if ($taskmodel->status == "Finish") {
+            $finNoti = Notice::find()->where(['task_id' => $id, 'user_id' => Yii::$app->user->id, 'read_n' => NULL])->asArray()->one();
+            if ($finNoti) {
+            $this->updateNotice($id);
+            }
+        } elseif ($taskmodel->status == "InWork" && $taskmodel->owner == Yii::$app->user->id) {
+            $finNoti = Notice::find()->where(['task_id' => $id, 'user_id' => Yii::$app->user->id, 'read_n' => NULL])->asArray()->one();
+            if ($finNoti) {
+            $this->updateNotice($id);
+            }
+        }
+
         if (isset($_POST['accept'])) { 
-            if ($model->status == "WaitSubmit") {
-                $model->status = "InWork";
-                $model->employer = "$model->employer";
-                $model->update();
+            if ($taskmodel->status == "WaitSubmit") {
+                $taskmodel->status = "InWork";
+                $taskmodel->employer = "$taskmodel->employer";
+                $taskmodel->update();
                 $this->updateNotice($id);
-                $this->createNotice($id, $model, "owner" ," was accepted!");
-            } elseif ($model->status == "WaitConfirm") {
-                $model->status = "Finish";
-                $model->employer = "$model->employer";
-                $model->update();
+                $this->createNotice($id, $taskmodel, "owner" ," was accepted!");
+            } elseif ($taskmodel->status == "WaitConfirm") {
+                $taskmodel->status = "Finish";
+                $taskmodel->employer = "$taskmodel->employer";
+                $taskmodel->update();
                 $this->updateNotice($id);
-                $this->createNotice($id, $model, "employer" ," was accepted!");
+                $this->createNotice($id, $taskmodel, "employer" ," was accepted!");
                 $del_dep = Dependence::find()->where(['dep_task_id' => $id ])->one(); // drop where dep_task_id = $id
                 if ($del_dep) {
                     $del_dep->delete();
@@ -83,18 +97,23 @@ class TaskController extends Controller
                 
             }
         } elseif (isset($_POST['discard'])) {
-            if ($model->status == "WaitSubmit") {
-                $model->status = "NotAccepted";
-                $model->employer = "0";
-                $model->update();
+            if ($taskmodel->status == "WaitSubmit") {
+                $taskmodel->status = "NotAccepted";
+                $taskmodel->employer = "0";
+                $taskmodel->update();
                 $this->updateNotice($id);
-                $this->createNotice($id, $model, "owner" ," was not accepted!");
-            } elseif ($model->status == "WaitConfirm") {
-                $model->status = "InWork";
-                $model->employer = "$model->employer";
-                $model->update();
+                $this->createNotice($id, $taskmodel, "owner" ," was not accepted!");
+            } elseif ($taskmodel->status == "WaitConfirm") {
+                $taskmodel->status = "InWork";
+                $taskmodel->employer = "$taskmodel->employer";
+                $taskmodel->update();
                 $this->updateNotice($id);
-                $this->createNotice($id, $model, "employer" ," was not accepted!");
+                $this->createNotice($id, $taskmodel, "employer" ," was not accepted!");
+            }
+        } elseif (isset($_POST['ok'])) {
+            $noti = Notice::find()->where(['task_id' => $id, 'user_id' => Yii::$app->user->id, 'read_n' => NULL])->asArray()->one();
+            if ($noti) {
+            $this->updateNotice($id);
             }
         }
 
@@ -107,32 +126,44 @@ class TaskController extends Controller
 
         if (isset(Yii::$app->user->id)) {
             $notice = Notice::find()->where(['user_id' => Yii::$app->user->id, 'task_id' => $id, 'read_n' => NULL])->one();
-            if ($notice) {
-                if ($model->status == "WaitSubmit" || $model->status == "WaitConfirm") {
-                    $control = 'submit';
-                    } else if ($model->owner == Yii::$app->user->id || $model->employer == Yii::$app->user->id) { 
+            if ($taskmodel->status != "Finish"){
+                if ($notice) {
+                    if ($taskmodel->status == "WaitConfirm" && $taskmodel->owner == Yii::$app->user->id) {
+                        $control = 'submit';
+                    } elseif ($taskmodel->status == "WaitConfirm" && $taskmodel->employer == Yii::$app->user->id) {
+                        $control = "fullcontrol";                        
+                    } elseif ($taskmodel->status == "WaitSubmit" && $taskmodel->employer == Yii::$app->user->id) {
+                        $control = 'submit';
+                    } elseif ($taskmodel->status == "InWork" && $taskmodel->employer == Yii::$app->user->id || $taskmodel->status == "InWork" && $taskmodel->owner == Yii::$app->user->id) {
+                        $control = "fullcontrol";
+                    } else { 
+                    $control = false;
+                    }        
+                } elseif ($taskmodel->status == "InWork" && $taskmodel->employer == Yii::$app->user->id || $taskmodel->status == "InWork" && $taskmodel->owner == Yii::$app->user->id){ 
                     $control = "fullcontrol";
-                    }               
-                } else if ($model->owner == Yii::$app->user->id || $model->employer == Yii::$app->user->id) { 
-                $control = "fullcontrol";
+                } elseif ($taskmodel->status == "WaitSubmit" && $taskmodel->owner == Yii::$app->user->id) { 
+                    $control = "fullcontrol";
+                } elseif ($taskmodel->status == "WaitConfirm" && $taskmodel->owner == Yii::$app->user->id) {
+                        $control = 'submit';
+                } else { 
+                    $control = false;
+                } 
             } else { 
-                $control = false;
+                $control = "finish";
             }
     
-            if ($model->employer == Yii::$app->user->id) {
+            if ($taskmodel->employer == Yii::$app->user->id) {
                     $controlEmployer = 1; 
             } else { 
                 $controlEmployer = 0; 
-            }
-             
+            }             
         } else {
             $control = false;
-            $controlempl = 0;
         }
 
 
         return $this->render('task', [
-            'model' => $model,
+            'taskmodel' => $taskmodel,
             'owner' => $owner,
             'employer' => $employer,
             'lastactivity' => $lastactivity,
@@ -144,12 +175,76 @@ class TaskController extends Controller
         ]);
     }
 
+    public function actionMyMyTasks()
+    {
+        $model = new Task();
+        $tasks = $this->actionGetTasks();     
+        return $this->render('mytasks', [
+            'model' => $model,
+            'tasks' => $tasks
+        ]);
+    }
+
     public function actionMyTasks()
     {
-        $model = new Task();     
-        return $this->render('mytasks', [
+        $model = new Task();
+        return $this->render('mymytasks', [
             'model' => $model
         ]);
+    }   
+
+    public function actionGetMyMyTasks()
+    {
+        $model = new Task();   
+        $tasks = $model->find()->where(['owner' => Yii::$app->user->id, 'parent_task' => NULL])->all();
+        for ($i=0; $i < count($tasks); $i++) { 
+              $userTasks[$i]['id'] = $tasks[$i]->task_id;
+              $userTasks[$i]['name'] = $tasks[$i]->task_name;
+              $tasks[$i]->percentcomplete > 0 ? $userTasks[$i]['percentcomplete'] = $tasks[$i]->percentcomplete : $userTasks[$i]['percentcomplete'] = 0;
+              $userTasks[$i]['status'] = $tasks[$i]->status;
+              $userTasks[$i]['owner'] = User::getUserName($tasks[$i]->owner);
+              $userTasks[$i]['description'] = $tasks[$i]->task_deskription;
+              $userTasks[$i]['deadline'] = $tasks[$i]->deadline;
+              $userTasks[$i]['estimate'] = $tasks[$i]->estimation;
+              $userTasks[$i]['timespend'] = $tasks[$i]->track_time;
+              $userTasks[$i]['startTime'] = Timetracking::firstActivity($tasks[$i]->task_id);
+              $lastActivity = Timetracking::lastActivity($tasks[$i]->task_id);
+              if ($lastActivity['time'] > 0) {
+                  $lastAct = $lastActivity['status'] . " at " .  $lastActivity['time'];
+              } else { $lastAct =  $lastActivity['status'];}
+              $userTasks[$i]['type'] = "project";
+              $userTasks[$i]['lastActivity'] = $lastAct;
+              $userTasks[$i]['employer'] = User::getUserName($tasks[$i]->employer);
+              $taskmodel = $this->findModel($tasks[$i]->task_id);
+              $userTasks[$i]['tags'] = $taskmodel->tagLinks;
+          }   
+        echo Json::encode($userTasks);
+    }   
+
+    public function actionGetMyMyTasksParent($itemId)
+    {
+        $model = new Task();   
+       $tasks = $model->find()->where(['parent_task' => $itemId])->all();    
+        for ($i=0; $i < count($tasks); $i++) { 
+              $userTasks[$i]['id'] = $tasks[$i]->task_id;
+              $userTasks[$i]['name'] = $tasks[$i]->task_name;
+              $tasks[$i]->percentcomplete > 0 ? $userTasks[$i]['percentcomplete'] = $tasks[$i]->percentcomplete : $userTasks[$i]['percentcomplete'] = 0;
+              $userTasks[$i]['status'] = $tasks[$i]->status;
+              $userTasks[$i]['owner'] = User::getUserName($tasks[$i]->owner);
+              $userTasks[$i]['description'] = $tasks[$i]->task_deskription;
+              $userTasks[$i]['deadline'] = $tasks[$i]->deadline;
+              $userTasks[$i]['estimate'] = $tasks[$i]->estimation;
+              $userTasks[$i]['timespend'] = $tasks[$i]->track_time;
+              $userTasks[$i]['startTime'] = Timetracking::firstActivity($tasks[$i]->task_id);
+              $lastActivity = Timetracking::lastActivity($tasks[$i]->task_id);
+              if ($lastActivity['time'] > 0) {
+                  $lastAct = $lastActivity['status'] . " at " .  $lastActivity['time'];
+              } else { $lastAct =  $lastActivity['status'];}
+              $userTasks[$i]['lastActivity'] = $lastAct;
+              $userTasks[$i]['employer'] = User::getUserName($tasks[$i]->employer);
+              $userTasks[$i]['type'] = "task";
+        }   
+        echo Json::encode($userTasks);
     }
 
 
@@ -159,8 +254,31 @@ class TaskController extends Controller
         for ($i=0; $i < count($res_arr); $i++) { 
             $items = $model->SelectParrent($res_arr[$i], 0);
         }
-        $allitems = $model->SelectNoTree($items);
-        echo Json::encode($allitems);   
+        if (isset($items)) {
+            $allitems = $model->SelectNoTree($items);
+        } else {
+            $items = [];
+            $allitems = $model->SelectNoTree($items);
+        }
+        
+        return Json::encode($allitems);   
+        
+    }
+
+    public function actionGetMyTasks(){
+        $model = new Task();
+                $res_arr = $model->SelectNoParrent();
+        for ($i=0; $i < count($res_arr); $i++) { 
+            $items = $model->SelectParrent($res_arr[$i], 0);
+        }
+        if (isset($items)) {
+            $allitems = $model->SelectNoTree($items);
+        } else {
+            $items = [];
+            $allitems = $model->SelectNoTree($items);
+        }
+        
+        return Json::encode($allitems);   
         
     }
 
@@ -173,11 +291,21 @@ class TaskController extends Controller
             $model->user_id = $user_id;
             $model->task_id = $taskId;
             $model->start = $date;
-            $model->save();
+            $ps = Timetracking::find()->where(['pause' => NULL, 'user_id' => $user_id])->one();
+            if (!$ps) {
+                $model->save();
+            } else { 
+                echo Json::encode($rull = 1); 
+            } 
         } elseif ($state == "pause") {
-            $pause = Timetracking::find()->where(['pause' => NULL, 'task_id' => $taskId])->one();
+            $pause = Timetracking::find()->where(['pause' => NULL, 'task_id' => $taskId])->one();            
             $pause->pause = $date;
             $pause->update();
+            $task = Task::find()->where(['task_id' => $taskId])->one();
+            $task->track_time = Timetracking::WorkTime($taskId);
+            $task->employer = "$task->employer";
+            $task->update();
+            Task::updatePrecenteComplete($taskId);
         } elseif ($state == "stop") {
             $stop = Timetracking::find()->where(['pause' => NULL, 'task_id' => $taskId])->one();
             if (is_null($stop)) {
@@ -190,7 +318,11 @@ class TaskController extends Controller
                 $not->user_id = $tsk_model->owner;
                 $not->task_id = $taskId;
                 $not->notice_text = "Task " . "'" . $tsk_model->task_name . "'" . " wait to submit!";
-                $not->save();            
+                $noti = $not->find()->where(['task_id' => $taskId, 'user_id' => $tsk_model->owner, 'read_n' => NULL])->asArray()->one();
+                if (!$noti) {
+                    $not->save(); 
+                }
+                 // return $this->redirect('/task/task' . "/" . $tsk_model->task_id);          
             } else {
                 $pause = Timetracking::find()->where(['pause' => NULL,'task_id' => $taskId])->one();
                 $pause->pause = $date;
@@ -204,9 +336,20 @@ class TaskController extends Controller
                 $not->user_id = $tsk_model->owner;
                 $not->task_id = $taskId;
                 $not->notice_text = "Task " . "'" . $tsk_model->task_name . "'" . " wait to submit!";
-                $not->save();            
+                $noti = $not->find()->where(['task_id' => $taskId, 'user_id' => $tsk_model->owner, 'read_n' => NULL])->asArray()->one();
+                // var_dump($noti);
+                if (!$noti) {
+                    $not->save(); 
+                }  
+                // return $this->redirect('/task/task' . "/" . $tsk_model->task_id);          
             }
         }
+    }
+
+    public function actionGetTime($taskId){
+        $model = new Task;
+        $tsk = $model->findOne($taskId);
+        return Json::encode($tsk->track_time);
     }
 
     /**
@@ -237,6 +380,15 @@ class TaskController extends Controller
         echo Json::encode($fullRes);
     }
 
+    public function actionGetTaskInWork(){
+        $taskmodel = new Task;
+        $lastactivity = Timetracking::UserTimeTrack(Yii::$app->user->id);
+        if (is_null($lastactivity['pause'])) {
+            $task = $taskmodel->findOne($lastactivity['task_id']);            
+            echo Json::encode($task);
+        } 
+    }
+
     /**
      * Displays a single Task model.
      * @param string $id
@@ -244,6 +396,7 @@ class TaskController extends Controller
      */
     public function actionView($id)
     {
+        User::identityUser();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -256,9 +409,17 @@ class TaskController extends Controller
      */
     public function actionCreate($id)
     {  
+        User::identityUser();
+        if (is_numeric($id)) {
+                $maxEstimate = Task::getEstimate($id);
+        } else { $maxEstimate = 1000*1000; }
         $model = new Task();
-        if (Yii::$app->request->post()) {
+        $post = Yii::$app->request->post();
+        if ($post) {
             $us_id = User::getUserId(Yii::$app->request->post()['Task']["employer"]);
+
+            $urls = isset($post['url']) ? $post['url'] : null;
+            $files = UploadedFile::getInstancesByName('file');
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $newid = $model->task_id;
@@ -266,6 +427,7 @@ class TaskController extends Controller
             $upd->owner = $us_id['owner_id'];
             $upd->employer = $us_id['empl_id'];
             if (is_numeric($id)) {
+                $maxEstimate = Task::getEstimate($id);
                 $upd->parent_task = $id;
                 $depen = new Dependence;
                 $depen->task_id =  $id;
@@ -279,10 +441,20 @@ class TaskController extends Controller
             $not->notice_text = "Task " . "'" . $upd->task_name . "'" . " wait to submit!";
             $not->save();
 
-            return $this->redirect('/task/task' . "/" . $newid);             
+            if($urls){
+                $model->uploadResources($urls, 'url');
+            }
+
+            if ($files) {
+                $model->uploadResources($files, 'file');
+            }
+
+
+            return $this->redirect('/task/task' . "/" . $newid);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'maxEstimate' => $maxEstimate,
             ]);
         }
     }
@@ -295,27 +467,65 @@ class TaskController extends Controller
      */
     public function actionUpdate($id)
     {
-        Yii::$app->session->open();
+        User::identityUser();
+        $post = Yii::$app->request->post();
+        $urls = isset($post['url']) ? $post['url'] : null;
+        $files = UploadedFile::getInstancesByName('file');
+
         $model = $this->findModel($id);
+        if (is_numeric($model->parent_task)) {
+            $maxEstimate = Task::getEstimate($model->parent_task);
+        } else { $maxEstimate = 1000*1000; }
+
         if ($model->owner != Yii::$app->user->id) {
             return $this->redirect('/user/personal-area');
         }
 
-        $username  = User::getUserName($model->employer);
+        $model->employer  = User::getUserName($model->employer);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $us_id = User::getUserId(Yii::$app->request->post()['Task']["employer"]);
             $upd = Task::findOne($id);
             $upd->employer = $us_id['empl_id'];
-            $upd->status = 'InWork';
+            if ($model->status == 'NotAccepted') {
+                $upd->status = 'WaitSubmit';
+            } else {
+                $model->status = $model->status;
+            }
             $upd->update();
             $this->updateNotice($model->task_id);
+            $newnot = new Notice;
+            $newnot->user_id = $us_id['empl_id'];
+            $newnot->task_id = $id;
+            $newnot->notice_text = "Task " . "'" . $model->task_name . "'" . " wait to submit!";
+            $newnot->save();
+
+            if($urls){
+                $model->uploadResources($urls, 'url');
+            }
+
+            if ($files) {
+                $model->uploadResources($files, 'file');
+            }
             return $this->redirect('/task/task'. "/" . $model->task_id);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'username' => $username
+                'maxEstimate' => $maxEstimate
             ]);
         }
+    }
+
+    public function actionRemoveResource()
+    {
+        $res_id = Yii::$app->request->post('res_id', null);
+        $modelResource = Resource::findOne($res_id);
+        if($modelResource && $modelResource->delete()){
+            foreach ($modelResource->taskRelations as $relation){
+                $relation->delete();
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -349,8 +559,10 @@ class TaskController extends Controller
 
     public function updateNotice($id){
         $not = Notice::find()->where(['user_id' => Yii::$app->user->id, 'task_id' => $id, 'read_n' => NULL])->one();
-        $not->read_n = 1;
-        $not->update();
+        if ($not) {
+            $not->read_n = 1;
+            $not->update();
+        }
     }
 
     public function createNotice($id, $model, $user ,$mes){

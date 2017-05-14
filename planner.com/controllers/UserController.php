@@ -4,11 +4,12 @@ namespace app\controllers;
 
 
 use app\models\Info;
-use app\models\Neo;
+use app\models\Tag;
 use app\models\PersonalArea;
 use app\models\Task;
 use app\models\User;
 use Yii;
+use yii\helpers\Json;
 use yii\filters\AccessControl;
 use yii\rest\CreateAction;
 use yii\web\Controller;
@@ -133,6 +134,9 @@ class UserController extends Controller
 
     public function actionPersonalArea()
     {
+        $tags = new Tag;
+        $AllTags = $tags->getTagsAll();
+
         $model = new PersonalArea();
         Yii::$app->session->open();
         if (isset(Yii::$app->user->id)) {
@@ -141,10 +145,19 @@ class UserController extends Controller
         } else {
             return $this->goHome();
         }
+        // var_dump($AllTags);
+        //  die();
         
         return $this->render('personalarea', [
             'model' => $model,
             'userInfo' => $userInfo,
+            'AllTags'=> $AllTags,
         ]);
+    }
+
+    public function actionGetTasks(){
+        $model = new PersonalArea();
+        $tasksToDo = $model->getTasksToDo();
+        echo Json::encode($tasksToDo);
     }
 }

@@ -10,12 +10,12 @@ $this->title = 'Tasks';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="task-index">
-
+    <script src="/web/js/nb.js"></script>
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Task', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+<!--    <p>-->
+<!--        --><?//= Html::a('Create Task', ['create'], ['class' => 'btn btn-success']) ?>
+<!--    </p>-->
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -27,15 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'employer',
             'parent_task',
             'task_name',
-            // 'task_deskription:ntext',
-            // 'deadline',
-            // 'start_task',
-            // 'estimation',
-            // 'track_time:datetime',
-            // 'status',
-            // 'dell',
+             'task_deskription:ntext',
+             'deadline',
+//             'start_task',
+             'estimation',
+             'track_time:datetime',
+             'status',
+             'dell',
 
-            ['class' => 'yii\grid\ActionColumn'],
+//            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 </div>

@@ -5,10 +5,16 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
-class User extends ActiveRecord  implements IdentityInterface{
+class User extends ActiveRecord  implements IdentityInterface
+{
     public $id;
     public $authKey;
     public $accessToken;
+
+    public static function tableName()
+    {
+        return 'user';
+    }
 
     public static function getUserId($username){
         $employer = User::find()->select('user_id')->where(['username' => $username])->asArray()->one();
@@ -21,6 +27,12 @@ class User extends ActiveRecord  implements IdentityInterface{
     public static function getUserName($id){
         $user = User::find()->select('username')->where(['user_id' => $id])->asArray()->one();
         return $user['username'];
+    }
+
+    public static function identityUser(){
+        if (!Yii::$app->user->id) {
+            $this->redirect('/site/index');  //wtf?
+        }
     }
 
 
@@ -86,7 +98,7 @@ class User extends ActiveRecord  implements IdentityInterface{
      */
     public function getAuthKey()
     {
-        return $this->authKey;
+        return $this->auth_key;
     }
 
     /**
@@ -107,13 +119,7 @@ class User extends ActiveRecord  implements IdentityInterface{
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
+//        return static::findOne(['access_token' => $token]);
     }
 }
 
