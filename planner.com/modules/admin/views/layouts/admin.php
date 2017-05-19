@@ -26,44 +26,6 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head()?>
     <script src="/web/js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript">
-        function getTaskInWork(){
-            $.get('<?php echo Url::to(['task/get-task-in-work']) ?>', {}, function(task){
-                if (task) {
-                    console.log(task);
-                    task = JSON.parse(task);
-                    $('#task-v').empty();
-                    $('#navbarnav').prepend('<li id="task-v"><a href="<?php echo Url::to(['task/task'])?>/'+task.task_id + '">Active task :: ' + task.task_name + '</a></li>');
-                }
-            });
-        }
-
-        function getNotice(){
-            $.get('<?php echo Url::to(['notice/notice']);?>', {'user_id': '<?php echo Yii::$app->user->id; ?>'}, function(data){
-                data = JSON.parse(data);
-                $('.dropdown-menu').empty();
-
-                if (!$("span").is("#baddge")) {
-                    $('.dropdown-toggle').append('<span class="badge" id="baddge" >'+ data.length +'</span>');
-                }  else {
-                    $('#baddge').text(data.length);
-                }
-
-                // if ($('.dropdown-toggle').attr('aria-expanded') === "true") {
-                for (var i = 0; i < data.length; i++) {
-                    if (!$('a').is('#' + data[i].notice_id)) {
-                        $('.dropdown-menu').append('<li id="' + data[i].notice_id +'"><a href="<?php echo Url::to(['task/task']) . "/" ;?>' + data[i].task_id +'" id="'+ data[i].notice_id +'" tabindex="-1" style="color: green;">'+ data[i].notice_text + '</a></li>');
-                    }
-                }
-                // }
-            });
-        }
-        $(document).ready(function(){
-            getNotice();
-            getTaskInWork();
-        });
-        setInterval(getNotice,30000);
-    </script>
 
 
     <script src='/web/js/nb.js'></script>

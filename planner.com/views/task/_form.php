@@ -57,7 +57,7 @@ $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); 
 
 <?= $form->field($model, 'estimation')->textInput(['type' => 'number', 'min' => 1, 'max' => $maxEstimate])->label("Estimation " . $deadlinetasklable ) ?>
 
-    <p><b>Upload Url</b></p>
+    <p><b>Attach Url</b></p>
 
 <!-- Upload URL -->
 <div class="input-group control-group after-add-more">

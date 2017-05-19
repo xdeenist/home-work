@@ -2354,7 +2354,7 @@
                 "BSD-3-Clause"
             ],
             "authors": [
-                {
+              
                     "name": "Kore Nordmann",
                     "email": "mail@kore-nordmann.de"
                 },
@@ -2371,6 +2371,8 @@
             "time": "2017-03-07 07:26:53"
         },
         {
+<<<<<<< HEAD
+=======
             "name": "sebastian/environment",
             "version": "2.0.x-dev",
             "source": {
@@ -2421,6 +2423,7 @@
             "time": "2016-11-26 07:53:53"
         },
         {
+>>>>>>> 3c3a8910cc263b42ee78dcbfada3d75f9160890a
             "name": "sebastian/exporter",
             "version": "2.0.x-dev",
             "source": {

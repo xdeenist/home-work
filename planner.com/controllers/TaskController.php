@@ -195,8 +195,9 @@ class TaskController extends Controller
 
     public function actionGetMyMyTasks()
     {
+    	$userTasks = [];
         $model = new Task();   
-        $tasks = $model->find()->where(['owner' => Yii::$app->user->id, 'parent_task' => NULL])->all();
+        $tasks = $model->find()->where(['owner' => Yii::$app->user->id])->orWhere(['employer' => Yii::$app->user->id])->all();
         for ($i=0; $i < count($tasks); $i++) { 
               $userTasks[$i]['id'] = $tasks[$i]->task_id;
               $userTasks[$i]['name'] = $tasks[$i]->task_name;
@@ -217,7 +218,7 @@ class TaskController extends Controller
               $userTasks[$i]['employer'] = User::getUserName($tasks[$i]->employer);
               $taskmodel = $this->findModel($tasks[$i]->task_id);
               $userTasks[$i]['tags'] = $taskmodel->tagLinks;
-          }   
+          }       
         echo Json::encode($userTasks);
     }   
 
@@ -243,7 +244,7 @@ class TaskController extends Controller
               $userTasks[$i]['lastActivity'] = $lastAct;
               $userTasks[$i]['employer'] = User::getUserName($tasks[$i]->employer);
               $userTasks[$i]['type'] = "task";
-        }   
+        }
         echo Json::encode($userTasks);
     }
 
@@ -370,7 +371,7 @@ class TaskController extends Controller
             $fullRes['worktime'] = 0;
             } else {
                 $fullRes['worktime'] = $worktime;
-            }
+           }
         if (is_null($fullRes['percentcomplete'])) {
                    $fullRes['percentcomplete'] = "0";
             } else {$fullRes['percentcomplete'] = $fullRes['percentcomplete'];}      
@@ -506,6 +507,7 @@ class TaskController extends Controller
             if ($files) {
                 $model->uploadResources($files, 'file');
             }
+
             return $this->redirect('/task/task'. "/" . $model->task_id);
         } else {
             return $this->render('update', [

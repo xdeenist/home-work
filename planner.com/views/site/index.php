@@ -7,7 +7,7 @@ $this->title = 'Planner';
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Hello!</h1>
+        <h1>Hello, My Friend!</h1>
 
         <p class="lead">Welcome to the task manager</p>
 
